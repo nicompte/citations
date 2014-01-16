@@ -5,7 +5,7 @@ require 'slim'
 require './model.rb'
 require 'mongoid'
 
-#Mongoid.load!("config/mongoid.yml", :production)
+Mongoid.load!("config/mongoid.yml", :production)
 
 get '/quote' do
   slim :new_quote
