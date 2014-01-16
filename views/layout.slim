@@ -1,0 +1,28 @@
+doctype html
+html data-ng-app="barbotte"
+  head
+    meta charset="utf-8"
+    meta content="width=device-width, initial-scale=1.0" name="viewport"
+    title= locals[:title] || 'Citations'
+    - # link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700" rel="stylesheet" type="text/css"
+    link href='http://fonts.googleapis.com/css?family=Lato:100|Source+Sans+Pro:300,400,600|Bad+script:300' rel='stylesheet' type='text/css'
+    link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+    link href="/css/style.css" rel="stylesheet" type="text/css"
+
+  body
+    .wrapper
+      header.main
+        a.logo href="/" CITATIONS
+        nav.header-nav
+          ul
+            li
+              a href="#" Youp
+            li
+              a href="#" Yap
+            li
+              a href="#" Yop
+            li
+              a href="#" Yup
+      .clear
+      / Content
+      .content == yield

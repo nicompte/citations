@@ -1,0 +1,86 @@
+.content {
+  padding: 20px 50px;
+}
+body {
+  vertical-align: baseline;
+  font-family: 'Source Sans Pro';
+  font-weight: 300;
+}
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.7em;
+}
+nav ul {
+  list-style: none outside none;
+  margin: 0px;
+  padding: 0px;
+}
+header {
+  padding: 1.6em 2em;
+}
+header .header-nav {
+  font-size: 1.05em;
+}
+.wrapper {
+  padding-bottom: 0px;
+  padding-top: 6em;
+}
+header.main {
+  height: 5.3em;
+  position: fixed;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  top: 0px;
+  border-bottom: 1px solid #ebebeb;
+  box-sizing: border-box;
+  outline: 0px solid transparent;
+}
+header.main .header-nav {
+  font-family: 'Source Sans Pro';
+  font-weight: 300;
+  float: right;
+  margin-right: 0;
+  line-height: 36px;
+}
+header.main .header-nav ul li {
+  display: inline-block;
+  padding: 0px 0.35em;
+}
+header.main .header-nav ul li a {
+  color: #6C6C6C;
+}
+header.main .header-nav ul li a:link {
+  color: #6C6C6C;
+  border-bottom: medium none;
+  text-decoration: none;
+}
+header.main a.logo {
+  text-decoration: none;
+  color: #6C6C6C;
+  font-family: lato;
+  font-weight: 100;
+  font-size: 2em;
+}
+.clear {
+  clear: both;
+}
+.quote {
+  margin: 20px 0px;
+}
+.quote .text {
+  margin-bottom: 4px;
+}
+.quote .author {
+  margin-right: 5px;
+  font-weight: 400;
+  font-size: 0.9em;
+}
+.quote .book {
+  font-style: italic;
+  font-size: 0.9em;
+}
+.quote .book:before {
+  content: "- ";
+}
