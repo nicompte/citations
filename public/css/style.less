@@ -1,4 +1,4 @@
-//@import "reset";
+@import "selectize-bootstrap3";
 
 .content {
     padding: 20px 50px;
@@ -73,6 +73,14 @@ header.main {
       font-family: lato;
       font-weight: 100;
       font-size: 2em;
+      i{
+        font-size: 0.9em;
+        margin-right: 10px;
+      }
+    }
+    .search-block{
+      // display: inline-block;
+      width: 300px;
     }
 }
 .clear {
@@ -82,18 +90,32 @@ header.main {
   margin: 20px 0px;
   .text{
     margin-bottom: 4px;
+    //font-family: lato;
+    //font-family: "proxima-nova", sans-serif;
   }
   .author{
+    a{
+      text-decoration: none;
+      color: #888;
+    }
     margin-right: 5px;
     font-weight: 400;
     font-size: 0.9em;
   }
   .book{
+    a{
+      text-decoration: none;
+      color: #888;
+    }
     font-style: italic;
     font-size: 0.9em;
     &:before{
       content: "- ";
     }
   }
+}
+.book a{
+  text-decoration: none;
+  color: #888;
 }
 

@@ -1,0 +1,16 @@
+h5= @author.name
+
+h6 Livres
+- @author.books.each do |book|
+  span.book
+    a href="/book/#{book.id}"= book.name
+
+h6 Citations
+- @author.quotes.each do |quote|
+  .quote
+    p.text= quote.text
+    span.author
+      a href="/author/#{quote.author.id}"= quote.author.name
+    - unless quote.book.nil? || quote.book.name.nil? || quote.book.name == ''
+      span.book
+        a href="/book/#{quote.book.id}"= quote.book.name

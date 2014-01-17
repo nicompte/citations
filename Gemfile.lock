@@ -7,13 +7,8 @@ GEM
     activesupport (3.2.16)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
-    bson (1.9.2)
-    bson_ext (1.9.2)
-      bson (~> 1.9.2)
     builder (3.0.4)
     i18n (0.6.9)
-    mongo (1.9.2)
-      bson (~> 1.9.2)
     mongoid (3.1.6)
       activemodel (~> 3.2)
       moped (~> 1.4)
@@ -41,8 +36,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bson_ext
-  mongo
   mongoid
   newrelic_rpm
   sinatra (~> 1.4.3)

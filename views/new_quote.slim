@@ -1,12 +1,57 @@
 h2 Nouvelle citation
 form action="/quote" method="post"
-  form-group
-    label Auteur
-    input.form-control type="text" placeholder="Auteur" name="quote.author"
-  form-group
+  input-group
+    label
+      | Auteur
+      span.required *
+    input.form-control type="text" placeholder="Auteur" name="quote[author]" required="required" id="author"
+  input-group
     label Livre
-    input.form-control type="text" placeholder="Livre" name="quote.book"
-  form-group
-    label Texte
-    textarea.form-control placeholder="Texte" name="quote.text"
+    input.form-control type="text" placeholder="Livre" name="quote[book]" id="book"
+  input-group
+    label
+      | Texte
+      span.required *
+    textarea.form-control placeholder="Texte" name="quote[text]" required="required"
   button.btn.btn-default type="submit" Ok
+
+javascript:
+  $(function(){
+
+     $('#author').selectize({
+      valueField: '_id', labelField: 'name',
+      searchField: 'name', create: true, maxItems: 1,
+      render: {
+        option_create: function(data, escape) {
+          return '<div class="create">Ajouter <strong>' + escape(data.input) + '</strong>&hellip;</div>';
+        }
+      },
+      load: function(query, callback) {
+        if (!query.length) return callback();
+        $.ajax({
+          url: '/author/find/' + encodeURIComponent(query), type: 'GET',
+          error: function() { callback(); },
+          success: function(res) { callback(res.slice(0, 10)); }
+        });
+      }
+    });
+
+    $('#book').selectize({
+      valueField: '_id', labelField: 'name',
+      searchField: 'name', create: true, maxItems: 1,
+      render: {
+        option_create: function(data, escape) {
+          return '<div class="create">Ajouter <strong>' + escape(data.input) + '</strong>&hellip;</div>';
+        }
+      },
+      load: function(query, callback) {
+        if (!query.length) return callback();
+        $.ajax({
+          url: '/book/find/author/' + $('#author').val() + '/book/' + encodeURIComponent(query), type: 'GET',
+          error: function() { callback(); },
+          success: function(res) { callback(res.slice(0, 10)); }
+        });
+      }
+    });
+
+  });

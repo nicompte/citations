@@ -3,17 +3,21 @@ require 'mongoid'
 class Author
   include Mongoid::Document
   field :name
-  embeds_many :books
+  has_many :quotes
+  has_many :books
 end
 
 class Book
   include Mongoid::Document
   field :name
   field :year
-  embeds_many :quotes
+  has_many :quote
+  belongs_to :author
 end
 
 class Quote
   include Mongoid::Document
   field :text
+  belongs_to :book
+  belongs_to :author
 end
