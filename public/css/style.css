@@ -384,10 +384,19 @@
   box-shadow: none;
 }
 .content {
-  padding: 20px 50px;
+  padding: 10px 50px;
+  position: relative;
+  top: 60px;
 }
 body {
   font-family: 'Source Sans Pro';
+}
+.navbar.navbar-default {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(248, 248, 248, 0.9);
+  z-index: 2;
 }
 .navbar .search-block {
   width: 500px;
