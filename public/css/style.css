@@ -448,9 +448,6 @@ body {
 form {
   max-width: 500px;
 }
-form h2 {
-  margin-bottom: 15px;
-}
 form .required {
   margin-left: 4px;
   color: red;
