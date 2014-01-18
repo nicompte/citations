@@ -453,7 +453,7 @@ body {
 }
 .book a {
   text-decoration: none;
-  color: #888;
+  color: #333;
 }
 form {
   max-width: 500px;
@@ -461,6 +461,17 @@ form {
 form .required {
   margin-left: 4px;
   color: red;
+}
+h1.author {
+  font-family: "Bad Script";
+  font-size: 1.6em;
+  margin-bottom: 20px;
+}
+h2.books,
+h2.quotes {
+  font-size: 1.3em;
+  font-family: Lato;
+  font-weight: 300;
 }
 /*
 nav {
