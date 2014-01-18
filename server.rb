@@ -76,6 +76,10 @@ get '/book/:id' do |id|
   slim :book
 end
 
+get '/about' do
+  slim :about
+end
+
 get '/*/?' do
   @quotes = Quote.all.desc(:_id).limit(10)
   slim :index
