@@ -4,6 +4,7 @@ require 'sinatra'
 require 'slim'
 require './model.rb'
 require 'json'
+require 'newrelic_rpm'
 
 Mongoid.load!("config/mongoid.yml", :production)
 
