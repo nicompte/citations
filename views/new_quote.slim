@@ -1,14 +1,16 @@
-h2 Nouvelle citation
 form action="/quote" method="post"
-  input-group
+
+  h2 Nouvelle citation
+
+  form-group
     label
       | Auteur
       span.required *
     input.form-control type="text" placeholder="Auteur" name="quote[author]" required="required" id="author"
-  input-group
+  form-group
     label Livre
     input.form-control type="text" placeholder="Livre" name="quote[book]" id="book"
-  input-group
+  form-group
     label
       | Texte
       span.required *

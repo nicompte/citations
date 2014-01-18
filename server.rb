@@ -15,12 +15,15 @@ end
 
 post '/quote' do
 
-  author = Author.where(_id: params[:quote]["author"]) || Author.where(name: params[:quote]["author"])
-  unless author.exists?
-    author = Author.create(:name => params[:quote]["author"])
-  else
-    author = author.first
-  end
+  author = Author.where(_id: params[:quote]["author"]).exists? ? Author.find(params[:quote]["author"])
+    : Author.find_or_create_by(name: params[:quote]["author"])
+
+  #author = Author.where(_id: params[:quote]["author"]) || Author.where(name: params[:quote]["author"])
+  #unless author.exists?
+  #  author = Author.create(:name => params[:quote]["author"])
+  #else
+  #  author = author.first
+  #end
 
   book = Book.where(_id: params[:quote]["book"]) || Book.where(author: author, name: params[:quote]["book"])
   unless book.exists?
@@ -63,6 +66,7 @@ end
 
 get '/book/:id' do |id|
   @book = Book.find(id)
+  @quotes = Quote.find(book: @book)
   slim :book
 end
 
