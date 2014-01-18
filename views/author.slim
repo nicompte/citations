@@ -1,4 +1,5 @@
-h1.author= @author.name
+h1.author
+ a href="/author/#{@author._id}"= @author.name
 
 h2.books LIVRES
 - @author.books.each do |book|

@@ -56,8 +56,13 @@ get '/book/find/author/:author/book/:book' do |author, book|
 end
 
 get '/authors' do
-  @authors = Author.all
+  @authors = Author.all.asc(:name)
   slim :authors
+end
+
+get '/books' do
+  @books = Book.all.asc(:name)
+  slim :books
 end
 
 get '/author/:id' do |id|
@@ -67,12 +72,12 @@ end
 
 get '/book/:id' do |id|
   @book = Book.find(id)
-  @quotes = Quote.find(book: @book)
+  @quotes = Quote.where(book: @book)
   slim :book
 end
 
 get '/*/?' do
-  @quotes = Quote.all.limit(10)
+  @quotes = Quote.all.desc(:_id).limit(10)
   slim :index
 end
 

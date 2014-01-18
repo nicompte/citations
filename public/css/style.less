@@ -69,21 +69,12 @@ h2{
     font-size: 0.9em;
   }
   .book{
-    a{
-      text-decoration: none;
-      color: #888;
-    }
     font-style: italic;
     font-size: 0.9em;
     &:before{
       content: "- ";
     }
   }
-}
-
-.book a{
-  text-decoration: none;
-  color: #333;
 }
 
 form{
@@ -96,16 +87,32 @@ form{
     //margin-top: 20px;
   }
 }
-
-h1.author{
+h1{
   font-family: "Bad Script";
   font-size: 1.6em;
   margin-bottom: 20px;
+  .book{
+    font-family: "Source Sans Pro";
+    font-weight: 300;
+  }
 }
 h2.books, h2.quotes{
   font-size: 1.3em;
   font-family: Lato;
   font-weight: 300;
+}
+a{
+  text-decoration: none;
+  color: #888;
+  &:hover{
+    color: #222;
+    text-decoration: none;
+  }
+}
+h1, h2{
+  a{
+    color: #333;
+  }
 }
 /*
 nav {

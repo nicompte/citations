@@ -1,8 +1,10 @@
-h5
-  i= @book.author.name
-  =@book.name
+h1.book
+  a href="/author/#{@book.author._id}"= @book.author.name
+  | &nbsp;-&nbsp;
+  i.book
+    a href="/book/#{@book._id}"= @book.name
 
-h6 Citations
+h2.quotes CITATIONS
 - @quotes.each do |quote|
   .quote
     p.text= quote.text

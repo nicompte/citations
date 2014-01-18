@@ -1,9 +1,4 @@
-/ h1 Body
-/
-  h5
-    i Voyage au bout de la nuit
-    |  - Louis-Ferdinand Céline
-
+h1 Dernières citations
 
 - @quotes.each do |quote|
   .quote
@@ -13,34 +8,3 @@
     - unless quote.book.nil? || quote.book.name.nil? || quote.book.name == ''
       span.book
         a href="/book/#{quote.book.id}"= quote.book.name
-
-/
-  .quote
-    p.text
-      | Donc pas d'erreur ? Ce qu'on faisait à se tirer dessus, comme ça, sans même se voir, n'était pas défendu ! Cela faisait partie des choses qu'on peut faire sans mériter une bonne engueulade. C'était même reconnu, encouragé sans doute par les gens sérieux, comme le tirage au sort, les fiançailles, la chasse à courre !... Rien à dire. Je venais de découvrir d'un coup la guerre tout entière.
-    span.author Louis-Ferdinand Céline
-    span.book Voyage Au Bout de la Nuit
-
-  .quote
-    p.text
-      | Au long des berges, le dimanche et la nuit les gens grimpent sur les tas pour faire pipi. Les hommes ça les rend méditatifs de se sentir devant l'eau qui passe. Ils urinent avec un sentiment d'éternité, comme des marins. Les femmes, ça ne médite jamais. Seine ou pas.
-    span.author Louis-Ferdinand Céline
-    span.book Voyage Au Bout de la Nuit
-
-  .quote
-  p.text
-    | Autant pas se faire d'illusions, les gens n'ont rien à se dire, ils ne se parlent que de leurs peines à eux chacun, c'est entendu. Chacun pour soi, la terre pour tous.
-  span.author Louis-Ferdinand Céline
-  span.book Voyage Au Bout de la Nuit
-
-  .quote
-  p.text
-    | Ne croyez jamais d’emblée au malheur des hommes. Demandez-leur seulement s’ils peuvent dormir encore…si oui, tout va bien. Ça suffit.
-  span.author Louis-Ferdinand Céline
-  span.book Voyage Au Bout de la Nuit
-
-  .quote
-  p.text
-    | Il faudra endormir pour de vrai, un soir, les gens heureux, pendant qu’ils dormiront, je vous le dis, et en finir avec eux et avec leur bonheur une fois pour toutes. Le lendemain on en parlera plus, de leur bonheur, et on sera devenu libre d’être malheureux tant qu’on voudra […].
-  span.author Louis-Ferdinand Céline
-  span.book Voyage Au Bout de la Nuit
