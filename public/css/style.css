@@ -428,7 +428,8 @@ body {
   margin: 20px 0px;
 }
 .quote .text {
-  margin-bottom: 4px;
+  margin-bottom: 3px;
+  font-size: 1.1em;
 }
 .quote .author {
   margin-right: 5px;
