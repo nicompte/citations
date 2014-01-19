@@ -80,6 +80,10 @@ get '/about' do
   slim :about
 end
 
+get '/ping' do
+  'ok'
+end
+
 get '/*/?' do
   @quotes = Quote.all.desc(:_id).limit(10)
   slim :index
