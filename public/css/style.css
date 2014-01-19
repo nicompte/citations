@@ -457,6 +457,9 @@ form .required {
   margin-left: 4px;
   color: red;
 }
+form .btn.needs-margin {
+  margin-top: 20px;
+}
 .modal form {
   max-width: 100%;
 }

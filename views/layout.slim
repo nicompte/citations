@@ -28,17 +28,20 @@ html
 
       #bs-example-navbar-collapse-1.collapse.navbar-collapse.navbar-right
         ul.nav.navbar-nav
-          li
-            a#add-link href="/quote" Ajouter
+          - unless session[:user].nil?
+            li
+              a href="/quote" Ajouter
           li
             a href="/authors" Auteurs
           li
             a href="/books" Livres
           li
             a href="/about" À propos
-          - unless session[:user].nil?
-            li
-              a href="/logout" Se déconnecter
+          li
+            - unless session[:user].nil?
+              a href="/logout" Déconnexion
+            - else
+              a#login-link href="/login" Connexion
 
         form.search-block
           .input-group
@@ -50,59 +53,55 @@ html
     / Content
     .content == yield
 
-    | <script>var isLogged = #{!session[:user].nil?};</script>
+    - if session[:user].nil?
 
-    javascript:
-      $(function(){
-        $('#add-link').on('click', function(event){
-          if(isLogged){
-            return true;
-          }else{
+      javascript:
+        $(function(){
+          $('#login-link').on('click', function(event){
             $('#myModal').modal('show');
             return false;
-          }
-        });
-
-        $('#login').on('submit', function(){
-          $.ajax({
-            url: '/login',
-            method: 'post',
-            data: $(this).serialize()
-          }).done(function(data){
-            isLogged = true;
-            $('#myModal').modal('hide');
-          }).fail(function(){
-            alert('Erreur de login');
           });
-          return false;
+
+          $('#login').on('submit', function(){
+            $.ajax({
+              url: '/login',
+              method: 'post',
+              data: $(this).serialize()
+            }).done(function(data){
+              $('#myModal').modal('hide');
+              window.location.reload();
+            }).fail(function(){
+              alert('Erreur de login');
+            });
+            return false;
+          });
+
         });
 
-      });
+      #myModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+        .modal-dialog
+          .modal-content
+            form#login
+              .modal-header
+                button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+                h4#myModalLabel.modal-title Connexion
 
-    /
-      button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"
-        | Launch demo modal
+              .modal-body
+                h4 Veuillez renseigner vos identifiants
+                .form-group
+                  label
+                    | Nom
+                    span.required *
+                  input.form-control type="text" placeholder="Nom" name="user"
+                .form-group
+                  label
+                    | Mot de passe
+                    span.required *
+                  input.form-control type="password" placeholder="Mot de passe" name="password"
 
-    #myModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-      .modal-dialog
-        .modal-content
-          form#login
-            .modal-header
-              button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
-              h4#myModalLabel.modal-title Connexion
-
-            .modal-body
-              h4 Veuillez renseigner vos identifiants
-              .form-group
-                label Nom
-                input.form-control type="text" placeholder="Nom" name="user"
-              .form-group
-                label Mot de passe
-                input.form-control type="password" placeholder="Mot de passe" name="password"
-
-            .modal-footer
-              button.btn.btn-default type="button" data-dismiss="modal" Annuler
-              button.btn.btn-default type="submit" Valider
+              .modal-footer
+                button.btn.btn-default type="button" data-dismiss="modal" Annuler
+                button.btn.btn-default type="submit" Valider
 
 
 
