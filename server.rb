@@ -10,11 +10,31 @@ Mongoid.load!("config/mongoid.yml", :production)
 
 require 'mongoid'
 
+enable :sessions
+
+post '/login' do
+  content_type :json
+  if params[:user] == 'nico' && params[:password] == 'nico'
+    session[:user] = "nico"
+    return {:login => "ok"}.to_json
+  else
+    status 401
+    return {:login => "ko"}.to_json
+  end
+end
+
+get '/logout' do
+  session[:user] = nil
+  redirect "/"
+end
+
 get '/quote' do
+  redirect '/' if session[:user].nil?
   slim :new_quote
 end
 
 post '/quote' do
+  redirect '/' if session[:user].nil?
 
   author = Author.where(_id: params[:quote]["author"]).exists? ? Author.find(params[:quote]["author"])
     : Author.find_or_create_by(name: params[:quote]["author"])
