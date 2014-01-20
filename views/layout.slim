@@ -112,6 +112,7 @@ html
             $('#quote-to-edit-author').val($(this).siblings('.author').find('a').html());
             $('#quote-to-edit-book').val($(this).siblings('.book').find('a').html());
             $('#quote-to-edit-quote').val($(this).siblings('.text').html());
+            $('#quote-to-edit-hidden').val($(this).siblings('.hidden').val());
             $('#editQuoteModal').modal('show');
             return false;
           });
@@ -191,7 +192,7 @@ html
                   textarea#quote-to-edit-quote.form-control placeholder="Texte" name="quote[text]" required="required"
                 .checkbox
                   label
-                    input type="checkbox" name="quote[hidden]" Cachée
+                    input#quote-to-edit-hidden type="checkbox" name="quote[hidden]" Cachée
 
               .modal-footer
                 button.btn.btn-default type="button" data-dismiss="modal" Annuler

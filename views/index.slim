@@ -3,9 +3,9 @@ h1.home Dernières citations
 - @quotes.each do |quote|
   .quote
     p.text= quote.text
+    input.hidden type="hidden" value="#{quote.hidden}"
     span.author
       a href="/author/#{quote.author.id}"= quote.author.name
-      input.hidden type="hidden" value="#{quote.hidden}"
     - unless quote.book.nil? || quote.book.name.nil? || quote.book.name == ''
       span.book
         a href="/book/#{quote.book.id}"= quote.book.name
