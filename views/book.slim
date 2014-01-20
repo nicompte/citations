@@ -10,6 +10,7 @@ h2.quotes CITATIONS
     p.text= quote.text
     span.author
       a href="/author/#{quote.author.id}"= quote.author.name
+      input.hidden type="hidden" value="#{quote.hidden}"
     - unless quote.book.nil? || quote.book.name.nil? || quote.book.name == ''
       span.book
         a href="/book/#{quote.book.id}"= quote.book.name
