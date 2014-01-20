@@ -1,0 +1,15 @@
+development:
+  sessions:
+    default:
+      hosts:
+        - localhost:27017
+      options:
+        safe: true
+        skip_version_check: true
+production:
+  sessions:
+    default:
+      uri: <%= ENV['MONGOLAB_URI'] %>
+      options:
+        safe: true
+        skip_version_check: true
