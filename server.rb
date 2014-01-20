@@ -56,7 +56,7 @@ post '/quote' do
 
   quote = Quote.create(
     :text => params[:quote]["text"],
-    :hidden => params[:quote]["hidden"].nil?,
+    :hidden => !params[:quote]["hidden"].nil?,
     book: book
   )
   #quote.book = book
@@ -87,6 +87,7 @@ put '/quote/:id' do |id|
   content_type :json
   quote = Quote.find(id)
   quote[:text] = params[:quote]["text"]
+  quote[:hidden] = !params[:quote]["hidden"].nil?,
   quote.save
   return {:delete => "ok"}.to_json
 end
