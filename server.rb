@@ -56,7 +56,7 @@ post '/quote' do
 
   quote = Quote.create(
     :text => params[:quote]["text"],
-    :hidden => params[:quote]["hidden"]?,
+    :hidden => params[:quote]["hidden"].nil?,
     book: book
   )
   #quote.book = book
