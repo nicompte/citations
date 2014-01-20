@@ -21,3 +21,9 @@ class Quote
   belongs_to :book
   belongs_to :author
 end
+
+class User
+  include Mongoid::Document
+  field :name
+  field :password
+end

@@ -14,8 +14,9 @@ enable :sessions
 
 post '/login' do
   content_type :json
-  if params[:user] == 'nico' && params[:password] == 'nico'
-    session[:user] = "nico"
+  user = User.where(user: params[:user])
+  if user.exists? && user.first.password == params[:password]
+    session[:user] = user.first
     return {:login => "ok"}.to_json
   else
     status 401
