@@ -2,20 +2,20 @@ form action="/quote" method="post" role="form"
 
   h1.home Nouvelle citation
 
-  form-group
+  .form-group
     label
       | Auteur
       span.required *
-    input.form-control type="text" placeholder="Auteur" name="quote[author]" required="required" id="author"
-  form-group
+    input#author.form-control type="text" placeholder="Auteur" name="quote[author]" required="required"
+  .form-group
     label Livre
-    input.form-control type="text" placeholder="Livre" name="quote[book]" id="book"
-  form-group
+    input#book.form-control type="text" placeholder="Livre" name="quote[book]"
+  .form-group
     label
       | Citation
       span.required *
     textarea.form-control placeholder="Texte" name="quote[text]" required="required"
-  button.btn.btn-default.needs-margin type="submit" Ok
+  button.btn.btn-default type="submit" Ok
 
 javascript:
   $(function(){

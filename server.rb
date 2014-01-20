@@ -67,7 +67,25 @@ end
 
 delete '/quote/:id' do |id|
   content_type :json
-  Quote.find(id).delete
+  quote = Quote.find(id)
+  book = quote.book
+  author = quote.author
+  quote.delete
+  if Quote.where(book: book).length == 0
+    book.delete
+  end
+  if Quote.where(author: author).length == 0
+    author.delete
+  end
+
+  return {:delete => "ok"}.to_json
+end
+
+put '/quote/:id' do |id|
+  content_type :json
+  quote = Quote.find(id)
+  quote[:text] = params[:quote]["text"]
+  quote.save
   return {:delete => "ok"}.to_json
 end
 

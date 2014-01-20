@@ -458,8 +458,8 @@ form .required {
   margin-left: 4px;
   color: red;
 }
-form .btn.needs-margin {
-  margin-top: 20px;
+form textarea {
+  min-height: 100px;
 }
 .modal form {
   max-width: 100%;

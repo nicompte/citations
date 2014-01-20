@@ -70,7 +70,7 @@ html
             }).done(function(){
               window.location.reload();
             }).fail(function(){
-              alert('Erreur de login');
+              alert('Erreur lors de la connexion.');
             });
             return false;
           });
@@ -108,6 +108,11 @@ html
         $(function(){
 
           $('.edit-quote').on('click', function(){
+            $('#quote-to-edit').val($(this).attr('data-id'));
+            $('#quote-to-edit-author').val($(this).siblings('.author').find('a').html());
+            $('#quote-to-edit-book').val($(this).siblings('.book').find('a').html());
+            $('#quote-to-edit-quote').val($(this).siblings('.text').html());
+            $('#editQuoteModal').modal('show');
             return false;
           });
 
@@ -124,7 +129,20 @@ html
             }).done(function(){
               window.location.reload();
             }).fail(function(){
-              alert('Erreur de login');
+              alert('Erreur lors de la suppression.');
+            });
+            return false;
+          });
+
+          $('#edit').on('submit', function(){
+            $.ajax({
+              url: '/quote/' + $('#quote-to-edit').val(),
+              method: 'put',
+              data: $(this).serialize()
+            }).done(function(){
+              window.location.reload();
+            }).fail(function(){
+              alert('Erreur lors de la modification.');
             });
             return false;
           });
@@ -142,6 +160,35 @@ html
               .modal-body
                 h5 Êtes-vous sûr de vouloir supprimer cette citation ?
                 input#quote-to-delete type="hidden"
+
+              .modal-footer
+                button.btn.btn-default type="button" data-dismiss="modal" Annuler
+                button.btn.btn-default type="submit" Valider
+
+      #editQuoteModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="editQuoteModalLabel" aria-hidden="true"
+        .modal-dialog
+          .modal-content
+            form#edit
+              .modal-header
+                button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+                h4#editQuoteModalLabel.modal-title Édition
+
+              .modal-body
+                h4 Édition de la citation
+                input#quote-to-edit type="hidden"
+                .form-group
+                  label
+                    | Auteur
+                    span.required *
+                  input#quote-to-edit-author.form-control type="text" placeholder="Auteur" required="required" disabled="disabled"
+                .form-group
+                  label Livre
+                  input#quote-to-edit-book.form-control type="text" placeholder="Livre" disabled="disabled"
+                .form-group
+                  label
+                    | Citation
+                    span.required *
+                  textarea#quote-to-edit-quote.form-control placeholder="Texte" name="quote[text]" required="required"
 
               .modal-footer
                 button.btn.btn-default type="button" data-dismiss="modal" Annuler
