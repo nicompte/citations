@@ -420,13 +420,6 @@ body {
   width: 250px;
   max-width: 250px;
 }
-@media (max-width: 767px) {
-  .search-block {
-    width: 200px!important;
-    margin-bottom: 15px;
-    margin-top: 0px;
-  }
-}
 .quote {
   margin: 20px 0px;
 }
@@ -449,6 +442,14 @@ body {
 }
 .quote .book:before {
   content: "- ";
+}
+.quote i {
+  font-size: 0.8em;
+  margin-left: 5px;
+  display: none;
+}
+.quote:hover i {
+  display: inline;
 }
 form {
   max-width: 500px;
@@ -495,4 +496,14 @@ a:hover {
 h1 a,
 h2 a {
   color: #333;
+}
+@media (max-width: 767px) {
+  .search-block {
+    width: 200px!important;
+    margin-bottom: 15px;
+    margin-top: 0px;
+  }
+  .quote i {
+    visibility: inline;
+  }
 }

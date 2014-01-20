@@ -65,6 +65,12 @@ post '/quote' do
   redirect "/"
 end
 
+delete '/quote/:id' do |id|
+  content_type :json
+  Quote.find(id).delete
+  return {:delete => "ok"}.to_json
+end
+
 get '/author/find/:name' do |name|
   content_type :json
   Author.where(name: Regexp.new(name, true)).limit(10).to_json

@@ -46,14 +46,6 @@ h2{
     max-width: 250px;
   }
 }
-@media (max-width: 767px) {
-  .search-block{
-    width: 200px!important;
-    margin-bottom: 15px;
-    margin-top: 0px;
-  }
-}
-
 .quote{
   margin: 20px 0px;
   .text{
@@ -77,6 +69,14 @@ h2{
     &:before{
       content: "- ";
     }
+  }
+  i{
+    font-size: 0.8em;
+    margin-left: 5px;
+    display: none;
+  }
+  &:hover i{
+    display: inline;
   }
 }
 
@@ -126,6 +126,18 @@ a{
 h1, h2{
   a{
     color: #333;
+  }
+}
+@media (max-width: 767px) {
+  .search-block{
+    width: 200px!important;
+    margin-bottom: 15px;
+    margin-top: 0px;
+  }
+  .quote{
+    i{
+      visibility: inline;
+    }
   }
 }
 

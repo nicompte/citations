@@ -57,8 +57,8 @@ html
 
       javascript:
         $(function(){
-          $('#login-link').on('click', function(event){
-            $('#myModal').modal('show');
+          $('#login-link').on('click', function(){
+            $('#loginModal').modal('show');
             return false;
           });
 
@@ -67,8 +67,7 @@ html
               url: '/login',
               method: 'post',
               data: $(this).serialize()
-            }).done(function(data){
-              $('#myModal').modal('hide');
+            }).done(function(){
               window.location.reload();
             }).fail(function(){
               alert('Erreur de login');
@@ -76,15 +75,13 @@ html
             return false;
           });
 
-        });
-
-      #myModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+      #loginModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true"
         .modal-dialog
           .modal-content
             form#login
               .modal-header
                 button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
-                h4#myModalLabel.modal-title Connexion
+                h4#loginModalLabel.modal-title Connexion
 
               .modal-body
                 h4 Veuillez renseigner vos identifiants
@@ -98,6 +95,52 @@ html
                     | Mot de passe
                     span.required *
                   input.form-control type="password" placeholder="Mot de passe" name="password"
+
+              .modal-footer
+                button.btn.btn-default type="button" data-dismiss="modal" Annuler
+                button.btn.btn-default type="submit" Valider
+
+
+    - else
+
+      javascript:
+        $(function(){
+
+          $('.edit-quote').on('click', function(){
+            return false;
+          });
+
+          $('.delete-quote').on('click', function(){
+            $('#quote-to-delete').val($(this).attr('data-id'));
+            $('#deleteQuoteModal').modal('show');
+            return false;
+          });
+
+          $('#delete').on('submit', function(){
+            $.ajax({
+              url: '/quote/' + $('#quote-to-delete').val(),
+              method: 'delete'
+            }).done(function(){
+              window.location.reload();
+            }).fail(function(){
+              alert('Erreur de login');
+            });
+            return false;
+          });
+
+        });
+
+      #deleteQuoteModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="deleteQuoteModalLabel" aria-hidden="true"
+        .modal-dialog
+          .modal-content
+            form#delete
+              .modal-header
+                button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+                h4#deleteQuoteModalLabel.modal-title Suppression
+
+              .modal-body
+                h5 Êtes-vous sûr de vouloir supprimer cette citation ?
+                input#quote-to-delete type="hidden"
 
               .modal-footer
                 button.btn.btn-default type="button" data-dismiss="modal" Annuler
