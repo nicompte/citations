@@ -26,6 +26,9 @@ h1.book
 
 javascript:
   var disqus_identifier = "/quote/#{@quote._id}"
+  var disqus_config = function () {
+    this.language = "fr";
+  };
 
 script src="//citations.disqus.com/embed.js"
 
