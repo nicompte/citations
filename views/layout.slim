@@ -36,8 +36,6 @@ html
           li
             a href="/books" Livres
           li
-            a href="/about" À propos
-          li
             - unless session[:user].nil?
               a href="/logout" Déconnexion
             - else

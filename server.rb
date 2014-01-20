@@ -34,6 +34,11 @@ get '/quote' do
   slim :new_quote
 end
 
+get '/quote/:id' do |id|
+  @quote = Quote.find(id)
+  slim :quote
+end
+
 post '/quote' do
   redirect '/' if session[:user].nil?
 
@@ -57,11 +62,11 @@ post '/quote' do
   quote = Quote.create(
     :text => params[:quote]["text"],
     :hidden => !params[:quote]["hidden"].nil?,
-    book: book
+    book: book,
+    user: session[:user]
   )
-  #quote.book = book
 
-  #book.quotes.push(quote)
+  session[:user].quotes.push(quote)
   author.quotes.push(quote)
 
   redirect "/"

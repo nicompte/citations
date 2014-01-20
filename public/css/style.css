@@ -427,6 +427,7 @@ body {
   margin-bottom: 3px;
   font-size: 1.1em;
   white-space: pre-line;
+  color: #333;
 }
 .quote .author {
   margin-right: 5px;
@@ -451,6 +452,13 @@ body {
 }
 .quote:hover i {
   display: inline;
+}
+.quote .user {
+  margin-top: 5px;
+  font-size: 0.9em;
+}
+.quote .user a {
+  margin-left: 5px;
 }
 form {
   max-width: 500px;

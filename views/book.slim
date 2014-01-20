@@ -14,7 +14,7 @@ h2.quotes CITATIONS
     - unless quote.book.nil? || quote.book.name.nil? || quote.book.name == ''
       span.book
         a href="/book/#{quote.book.id}"= quote.book.name
-    - unless session[:user].nil?
+    - unless session[:user].nil? || session[:user]._id != quote.user_id
       a.edit-quote data-id="#{quote._id}" href="/quote/#{quote._id}/edit"
         i.fa.fa-pencil
       a.delete-quote data-id="#{quote._id}" href="/quote/#{quote._id}/delete"

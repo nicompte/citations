@@ -21,10 +21,12 @@ class Quote
   field :hidden, type: Boolean
   belongs_to :book
   belongs_to :author
+  belongs_to :user
 end
 
 class User
   include Mongoid::Document
   field :name, type: String
   field :password, type: String
+  has_many :quotes
 end
