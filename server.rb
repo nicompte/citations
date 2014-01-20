@@ -56,6 +56,7 @@ post '/quote' do
 
   quote = Quote.create(
     :text => params[:quote]["text"],
+    :hidden => params[:quote]["hidden"]
     book: book
   )
   #quote.book = book
@@ -130,7 +131,11 @@ get '/ping' do
 end
 
 get '/*/?' do
-  @quotes = Quote.all.desc(:_id).limit(10)
+  if session[:user].nil?
+    @quotes = Quote.where(hidden: false).desc(:_id).limit(20)
+  else
+    @quotes = Quote.all.desc(:_id).limit(20)
+  end
   slim :index
 end
 
