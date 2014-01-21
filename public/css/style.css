@@ -407,7 +407,7 @@ body {
 .navbar .navbar-brand {
   font-family: lato;
   font-weight: 100;
-  font-size: 2em;
+  font-size: 2.3em;
 }
 .navbar a,
 .navbar button {
@@ -421,7 +421,7 @@ body {
   max-width: 250px;
 }
 .quote {
-  margin: 20px 0px;
+  margin: 35px 0px;
 }
 .quote .text {
   margin-bottom: 3px;
@@ -458,6 +458,9 @@ body {
   font-size: 0.9em;
   color: #888;
 }
+.book-list {
+  margin-top: 30px;
+}
 form {
   max-width: 500px;
 }
@@ -473,6 +476,12 @@ form textarea {
 }
 .modal.fade {
   overflow: auto;
+}
+h1,
+h2,
+h3 {
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 h1 {
   font-family: "Bad Script";
@@ -491,13 +500,15 @@ h2.quotes {
   font-size: 1.3em;
   font-family: Lato;
   font-weight: 300;
+  color: #b10101;
 }
 a {
   text-decoration: none;
   color: #888;
 }
-a:hover {
-  color: #222;
+a:hover,
+a:hover p {
+  color: #b10101!important;
   text-decoration: none;
 }
 h1 a,

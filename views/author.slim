@@ -2,16 +2,17 @@ h1.author
  a href="/author/#{@author._id}"= @author.name
 
 h2.books LIVRES
-- @author.books.each do |book|
-  div.book
-    a href="/book/#{book.id}"
-      = book.name
-      | &nbsp;(
-      => Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
-      - if Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count <= 1
-        | citation)
-      - else
-        | citations)
+.book-list
+  - @author.books.each do |book|
+    div.book
+      a href="/book/#{book.id}"
+        = book.name
+        | &nbsp;(
+        => Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
+        - if Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count <= 1
+          | citation)
+        - else
+          | citations)
 
 h2.quotes
   | CITATIONS (
