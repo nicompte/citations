@@ -516,3 +516,6 @@ h2 a {
     visibility: inline;
   }
 }
+#disqus_thread {
+  margin-top: 50px;
+}
