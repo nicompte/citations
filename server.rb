@@ -93,7 +93,10 @@ end
 put '/quote/:id' do |id|
   content_type :json
   quote = Quote.find(id)
-  redirect '/' if @quote.hidden && session[:user] != @quote.user
+  if session[:user] != @quote.user
+    status 401
+    return {:delete => "ko"}.to_json
+  end
   quote[:text] = params[:quote]["text"]
   quote[:hidden] = !params[:quote]["hidden"].nil?
   quote.save
