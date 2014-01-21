@@ -36,7 +36,7 @@ end
 
 get '/quote/:id' do |id|
   @quote = Quote.find(id)
-  redirect '/' if session[:user] != @quote.user
+  redirect '/' if @quote.hidden && session[:user] != @quote.user
   slim :quote
 end
 
