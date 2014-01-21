@@ -1,4 +1,11 @@
 h1 Livres
 - @books.each do |book|
   div
-    a.book href="/book/#{book._id}"= book.name
+    a.book href="/book/#{book._id}"
+      = book.name
+      | &nbsp;(
+      => Quote.where(book: book).count
+      - if Quote.where(book: book).count <= 1
+        | citation)
+      - else
+        | citations)

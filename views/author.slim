@@ -6,9 +6,12 @@ h2.books LIVRES
   div.book
     a href="/book/#{book.id}"
       = book.name
-      | (
-      /= book.quotes.length
-      | )
+      | &nbsp;(
+      => Quote.where(book: book).count
+      - if Quote.where(book: book).count <= 1
+        | citation)
+      - else
+        | citations)
 
 h2.quotes
   | CITATIONS (
@@ -16,7 +19,8 @@ h2.quotes
   | )
 - @author.quotes.each do |quote|
   .quote
-    p.text= quote.text
+    a href="/quote/#{quote._id}"
+      p.text= quote.text
     input.hidden type="hidden" value="#{quote.hidden}"
     span.author
       a href="/author/#{quote.author.id}"= quote.author.name

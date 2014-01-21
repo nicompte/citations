@@ -10,7 +10,8 @@ h2.quotes
   | )
 - @quotes.each do |quote|
   .quote
-    p.text= quote.text
+    a href="/quote/#{quote._id}"
+      p.text= quote.text
     input.hidden type="hidden" value="#{quote.hidden}"
     span.author
       a href="/author/#{quote.author.id}"= quote.author.name

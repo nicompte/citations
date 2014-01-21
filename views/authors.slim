@@ -1,4 +1,11 @@
 h1 Auteurs
 - @authors.each do |author|
   div
-    a.author href="/author/#{author._id}"= author.name
+    a.author href="/author/#{author._id}"
+      = author.name
+      | &nbsp;(
+      =>author.quotes.length
+      - if author.quotes.length <= 1
+        | citation)
+      - else
+        | citations)
