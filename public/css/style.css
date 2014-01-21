@@ -456,9 +456,7 @@ body {
 .quote .user {
   margin-top: 5px;
   font-size: 0.9em;
-}
-.quote .user a {
-  margin-left: 5px;
+  color: #888;
 }
 form {
   max-width: 500px;
