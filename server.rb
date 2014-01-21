@@ -119,12 +119,13 @@ end
 
 get '/author/:id' do |id|
   @author = Author.find(id)
+  @quotes = Quote.where(author: id).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id)
   slim :author
 end
 
 get '/book/:id' do |id|
   @book = Book.find(id)
-  @quotes = Quote.where(book: @book)
+  @quotes = Quote.where(book: id).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id)
   slim :book
 end
 

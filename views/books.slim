@@ -4,8 +4,8 @@ h1 Livres
     a.book href="/book/#{book._id}"
       = book.name
       | &nbsp;(
-      => Quote.where(book: book).count
-      - if Quote.where(book: book).count <= 1
+      => Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
+      - if Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count <= 1
         | citation)
       - else
         | citations)

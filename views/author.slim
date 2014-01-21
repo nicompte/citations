@@ -7,17 +7,17 @@ h2.books LIVRES
     a href="/book/#{book.id}"
       = book.name
       | &nbsp;(
-      => Quote.where(book: book).count
-      - if Quote.where(book: book).count <= 1
+      => Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
+      - if Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count <= 1
         | citation)
       - else
         | citations)
 
 h2.quotes
   | CITATIONS (
-  = @author.quotes.length
+  = @quotes.length
   | )
-- @author.quotes.each do |quote|
+- @quotes.each do |quote|
   .quote
     a href="/quote/#{quote._id}"
       p.text= quote.text
