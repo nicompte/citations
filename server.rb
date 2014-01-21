@@ -76,7 +76,7 @@ end
 delete '/quote/:id' do |id|
   content_type :json
   quote = Quote.find(id)
-  redirect '/' if @quote.hidden && session[:user] != @quote.user
+  redirect '/' if @quote.hidden && session[:user] != quote.user
   book = quote.book
   author = quote.author
   quote.delete
@@ -93,7 +93,7 @@ end
 put '/quote/:id' do |id|
   content_type :json
   quote = Quote.find(id)
-  if session[:user] != @quote.user
+  if session[:user] != quote.user
     status 401
     return {:delete => "ko"}.to_json
   end
