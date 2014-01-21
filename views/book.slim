@@ -4,7 +4,10 @@ h1.book
   i.book
     a href="/book/#{@book._id}"= @book.name
 
-h2.quotes CITATIONS
+h2.quotes
+  | CITATIONS (
+  = @quotes.length
+  | )
 - @quotes.each do |quote|
   .quote
     p.text= quote.text
