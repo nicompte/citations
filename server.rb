@@ -76,6 +76,7 @@ end
 delete '/quote/:id' do |id|
   content_type :json
   quote = Quote.find(id)
+  redirect '/' if @quote.hidden && session[:user] != @quote.user
   book = quote.book
   author = quote.author
   quote.delete
@@ -92,6 +93,7 @@ end
 put '/quote/:id' do |id|
   content_type :json
   quote = Quote.find(id)
+  redirect '/' if @quote.hidden && session[:user] != @quote.user
   quote[:text] = params[:quote]["text"]
   quote[:hidden] = !params[:quote]["hidden"].nil?
   quote.save
