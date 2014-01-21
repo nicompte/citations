@@ -1,0 +1,30 @@
+#addQuoteModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="addQuoteModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      form#add action="/quote" method="post"
+        .modal-header
+          button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+          h4#addQuoteModalLabel.modal-title Nouvelle citation
+
+        .modal-body
+          h4 Nouvelle citation
+          .form-group
+            label
+              | Auteur
+              span.required *
+            input#author.form-control type="text" placeholder="Auteur" name="quote[author]" required="required"
+          .form-group
+            label Livre
+            input#book.form-control type="text" placeholder="Livre" name="quote[book]"
+          .form-group
+            label
+              | Citation
+              span.required *
+            textarea.form-control placeholder="Texte" name="quote[text]" required="required"
+          .checkbox
+            label
+              input#quote-to-edit-hidden type="checkbox" name="quote[hidden]" Citation privée
+
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal" Annuler
+          button.btn.btn-default type="submit" Valider

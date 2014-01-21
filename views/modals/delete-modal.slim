@@ -1,0 +1,15 @@
+#deleteQuoteModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="deleteQuoteModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      form#delete
+        .modal-header
+          button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+          h4#deleteQuoteModalLabel.modal-title Suppression
+
+        .modal-body
+          h5 Êtes-vous sûr de vouloir supprimer cette citation ?
+          input#quote-to-delete type="hidden"
+
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal" Annuler
+          button.btn.btn-default type="submit" Valider

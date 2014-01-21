@@ -11,10 +11,6 @@ html
 
     link href="/css/style.css" rel="stylesheet" type="text/css"
 
-    script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"
-    script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"
-    script src="//cdnjs.cloudflare.com/ajax/libs/selectize.js/0.6.14/selectize.min.js"
-
   body
 
     nav.navbar.navbar-default
@@ -30,7 +26,7 @@ html
         ul.nav.navbar-nav
           - unless session[:user].nil?
             li
-              a href="/quote" Ajouter
+              a#add-quote href="/quote" Ajouter
           li
             a href="/authors" Auteurs
           li
@@ -51,150 +47,17 @@ html
     / Content
     .content == yield
 
-    - if session[:user].nil?
+    ==Slim::Template.new('views/modals/login-modal.slim').render
+    ==Slim::Template.new('views/modals/create-modal.slim').render
+    ==Slim::Template.new('views/modals/edit-modal.slim').render
+    ==Slim::Template.new('views/modals/delete-modal.slim').render
 
-      javascript:
-        $(function(){
-          $('#login-link').on('click', function(){
-            $('#loginModal').modal('show');
-            return false;
-          });
-
-          $('#login').on('submit', function(){
-            $.ajax({
-              url: '/login',
-              method: 'post',
-              data: $(this).serialize()
-            }).done(function(){
-              window.location.reload();
-            }).fail(function(){
-              alert('Erreur lors de la connexion.');
-            });
-            return false;
-          });
-        });
-
-      #loginModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true"
-        .modal-dialog
-          .modal-content
-            form#login
-              .modal-header
-                button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
-                h4#loginModalLabel.modal-title Connexion
-
-              .modal-body
-                h4 Veuillez renseigner vos identifiants
-                .form-group
-                  label
-                    | Nom
-                    span.required *
-                  input.form-control type="text" placeholder="Nom" name="user"
-                .form-group
-                  label
-                    | Mot de passe
-                    span.required *
-                  input.form-control type="password" placeholder="Mot de passe" name="password"
-
-              .modal-footer
-                button.btn.btn-default type="button" data-dismiss="modal" Annuler
-                button.btn.btn-default type="submit" Valider
+    script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"
+    script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"
+    script src="//cdnjs.cloudflare.com/ajax/libs/selectize.js/0.6.14/selectize.min.js"
+    script src="/scripts/main.js"
 
 
-    - else
-
-      javascript:
-        $(function(){
-
-          $('.edit-quote').on('click', function(){
-            $('#quote-to-edit').val($(this).attr('data-id'));
-            $('#quote-to-edit-author').val($(this).siblings('.author').find('a').html());
-            $('#quote-to-edit-book').val($(this).siblings('.book').find('a').html());
-            $('#quote-to-edit-quote').val($(this).parents('.quote').find('.text').html());
-            $('#quote-to-edit-hidden').prop('checked', $(this).siblings('.hidden').val() == "true" ? true : false);
-            $('#editQuoteModal').modal('show');
-            return false;
-          });
-
-          $('.delete-quote').on('click', function(){
-            $('#quote-to-delete').val($(this).attr('data-id'));
-            $('#deleteQuoteModal').modal('show');
-            return false;
-          });
-
-          $('#delete').on('submit', function(){
-            $.ajax({
-              url: '/quote/' + $('#quote-to-delete').val(),
-              method: 'delete'
-            }).done(function(){
-              window.location.reload();
-            }).fail(function(){
-              alert('Erreur lors de la suppression.');
-            });
-            return false;
-          });
-
-          $('#edit').on('submit', function(){
-            $.ajax({
-              url: '/quote/' + $('#quote-to-edit').val(),
-              method: 'put',
-              data: $(this).serialize()
-            }).done(function(){
-              window.location.reload();
-            }).fail(function(){
-              alert('Erreur lors de la modification.');
-            });
-            return false;
-          });
-
-        });
-
-      #deleteQuoteModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="deleteQuoteModalLabel" aria-hidden="true"
-        .modal-dialog
-          .modal-content
-            form#delete
-              .modal-header
-                button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
-                h4#deleteQuoteModalLabel.modal-title Suppression
-
-              .modal-body
-                h5 Êtes-vous sûr de vouloir supprimer cette citation ?
-                input#quote-to-delete type="hidden"
-
-              .modal-footer
-                button.btn.btn-default type="button" data-dismiss="modal" Annuler
-                button.btn.btn-default type="submit" Valider
-
-      #editQuoteModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="editQuoteModalLabel" aria-hidden="true"
-        .modal-dialog
-          .modal-content
-            form#edit
-              .modal-header
-                button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
-                h4#editQuoteModalLabel.modal-title Édition
-
-              .modal-body
-                h4 Édition de la citation
-                input#quote-to-edit type="hidden"
-                .form-group
-                  label
-                    | Auteur
-                    span.required *
-                  input#quote-to-edit-author.form-control type="text" placeholder="Auteur" required="required" disabled="disabled"
-                .form-group
-                  label Livre
-                  input#quote-to-edit-book.form-control type="text" placeholder="Livre" disabled="disabled"
-                .form-group
-                  label
-                    | Citation
-                    span.required *
-                  textarea#quote-to-edit-quote.form-control placeholder="Texte" name="quote[text]" required="required"
-                .checkbox
-                  label
-                    input#quote-to-edit-hidden type="checkbox" name="quote[hidden]" Citation privée
-
-              .modal-footer
-                button.btn.btn-default type="button" data-dismiss="modal" Annuler
-                button.btn.btn-default type="submit" Valider
 
 
 

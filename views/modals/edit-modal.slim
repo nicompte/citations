@@ -1,0 +1,31 @@
+#editQuoteModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="editQuoteModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      form#edit
+        .modal-header
+          button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+          h4#editQuoteModalLabel.modal-title Édition
+
+        .modal-body
+          h4 Édition de la citation
+          input#quote-to-edit type="hidden"
+          .form-group
+            label
+              | Auteur
+              span.required *
+            input#quote-to-edit-author.form-control type="text" placeholder="Auteur" required="required" disabled="disabled"
+          .form-group
+            label Livre
+            input#quote-to-edit-book.form-control type="text" placeholder="Livre" disabled="disabled"
+          .form-group
+            label
+              | Citation
+              span.required *
+            textarea#quote-to-edit-quote.form-control placeholder="Texte" name="quote[text]" required="required"
+          .checkbox
+            label
+              input#quote-to-edit-hidden type="checkbox" name="quote[hidden]" Citation privée
+
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal" Annuler
+          button.btn.btn-default type="submit" Valider

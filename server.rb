@@ -46,19 +46,15 @@ post '/quote' do
   author = Author.where(_id: params[:quote]["author"]).exists? ? Author.find(params[:quote]["author"])
     : Author.find_or_create_by(name: params[:quote]["author"])
 
-  #author = Author.where(_id: params[:quote]["author"]) || Author.where(name: params[:quote]["author"])
-  #unless author.exists?
-  #  author = Author.create(:name => params[:quote]["author"])
-  #else
-  #  author = author.first
-  #end
+  book = Book.where(_id: params[:quote]["book"]).exists? ? Book.find(params[:quote]["book"])
+    : Book.create(:name => params[:quote]["book"], author: author)
 
-  book = Book.where(_id: params[:quote]["book"]) || Book.where(author: author, name: params[:quote]["book"])
-  unless book.exists?
-    book = Book.create(:name => params[:quote]["book"], author: author)
-  else
-    book = book.first
-  end
+  #book = Book.where(_id: params[:quote]["book"]) || Book.where(author: author, name: params[:quote]["book"])
+  #unless book.exists?
+  #  book = Book.create(:name => params[:quote]["book"], author: author)
+  #else
+  #  book = book.first
+  #end
 
   quote = Quote.create(
     :text => params[:quote]["text"],
@@ -76,7 +72,10 @@ end
 delete '/quote/:id' do |id|
   content_type :json
   quote = Quote.find(id)
-  redirect '/' if @quote.hidden && session[:user] != quote.user
+  if session[:user] != quote.user
+    status 401
+    return {:delete => "ko"}.to_json
+  end
   book = quote.book
   author = quote.author
   quote.delete
@@ -95,7 +94,7 @@ put '/quote/:id' do |id|
   quote = Quote.find(id)
   if session[:user] != quote.user
     status 401
-    return {:delete => "ko"}.to_json
+    return {:edit => "ko"}.to_json
   end
   quote[:text] = params[:quote]["text"]
   quote[:hidden] = !params[:quote]["hidden"].nil?

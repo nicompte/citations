@@ -1,0 +1,24 @@
+#loginModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      form#login
+        .modal-header
+          button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+          h4#loginModalLabel.modal-title Connexion
+
+        .modal-body
+          h4 Veuillez renseigner vos identifiants
+          .form-group
+            label
+              | Nom
+              span.required *
+            input.form-control type="text" placeholder="Nom" name="user"
+          .form-group
+            label
+              | Mot de passe
+              span.required *
+            input.form-control type="password" placeholder="Mot de passe" name="password"
+
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal" Annuler
+          button.btn.btn-default type="submit" Valider
