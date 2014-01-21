@@ -427,7 +427,8 @@ body {
   margin-bottom: 3px;
   font-size: 1.2em;
   white-space: pre-line;
-  color: #333;
+  color: #222;
+  font-weight: 300;
 }
 .quote .author {
   margin-right: 5px;
@@ -436,7 +437,7 @@ body {
 }
 .quote .author a {
   text-decoration: none;
-  color: #888;
+  color: #999;
 }
 .quote .book {
   font-style: italic;
@@ -456,7 +457,10 @@ body {
 .quote .user {
   margin-top: 5px;
   font-size: 0.9em;
-  color: #888;
+  color: #aaa;
+}
+.quote .user a {
+  color: #999;
 }
 .book-list {
   margin-top: 30px;
@@ -485,7 +489,7 @@ h3 {
 }
 h1 {
   font-family: "Bad Script";
-  font-size: 1.8em;
+  font-size: 1.7em;
   margin-bottom: 20px;
 }
 h1 .book {
