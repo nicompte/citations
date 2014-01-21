@@ -109,7 +109,7 @@ html
             $('#quote-to-edit').val($(this).attr('data-id'));
             $('#quote-to-edit-author').val($(this).siblings('.author').find('a').html());
             $('#quote-to-edit-book').val($(this).siblings('.book').find('a').html());
-            $('#quote-to-edit-quote').val($(this).siblings('.text').html());
+            $('#quote-to-edit-quote').val($(this).parents('.quote').find('.text').html());
             $('#quote-to-edit-hidden').prop('checked', $(this).siblings('.hidden').val() == "true" ? true : false);
             $('#editQuoteModal').modal('show');
             return false;
