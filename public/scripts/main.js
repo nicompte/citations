@@ -90,7 +90,7 @@ $(function(){
     $('#quote-to-edit-author').val($(this).siblings('.author').find('a').html());
     $('#quote-to-edit-book').val($(this).siblings('.book').find('a').html());
     $('#quote-to-edit-quote').val($(this).parents('.quote').find('.text').html());
-    $('#quote-to-edit-hidden').prop('checked', $(this).siblings('.hidden').val() == "true" ? true : false);
+    $('#quote-to-edit-hidden').prop('checked', $(this).siblings('.hidden').val() == "true");
     $('#editQuoteModal').modal('show');
     return false;
   });
