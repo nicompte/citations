@@ -40,6 +40,11 @@ get '/quote/:id' do |id|
   slim :quote, :locals=>{:title => "Citations - #{@quote.author.name}, #{@quote.book.name}"}
 end
 
+get '/quote/rand' do
+  count = Quote.or( {hidden: false}, {hidden: true, user: session[:user]} ).count
+  return count
+end
+
 post '/quote' do
   redirect '/' if session[:user].nil?
 

@@ -4,15 +4,17 @@ h1.author
 h2.books LIVRES
 .book-list
   - @author.books.each do |book|
-    div.book
-      a href="/book/#{book.id}"
-        = book.name
-        | &nbsp;(
-        => Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
-        - if Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count <= 1
-          | citation)
-        - else
-          | citations)
+    - count = Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
+    - if count > 0
+      div.book
+        a href="/book/#{book.id}"
+          = book.name
+          | &nbsp;(
+          => count
+          - if count = 1
+            | citation)
+          - else
+            | citations)
 
 h2.quotes
   | CITATIONS (
