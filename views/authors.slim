@@ -9,8 +9,9 @@ h1 Auteurs
     a.author href="/author/#{author._id}"
       = author.name
       | &nbsp;(
-      => Quote.where(author: author._id).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
-      - if Quote.where(author: author._id).or( {hidden: false}, {hidden: true, user: session[:user]} ).count <= 1
+      - count = Quote.where(author: author._id).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
+      => count
+      - if count <= 1
         | citation)
       - else
         | citations)
