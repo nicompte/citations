@@ -37,7 +37,7 @@ end
 get '/quote/:id' do |id|
   @quote = Quote.find(id)
   redirect '/' if @quote.hidden && session[:user] != @quote.user
-  slim :quote
+  slim :quote, :locals=>{:title => "Citations - #{@quote.author.name}, #{@quote.book.name}"}
 end
 
 post '/quote' do
@@ -48,13 +48,6 @@ post '/quote' do
 
   book = Book.where(_id: params[:quote]["book"]).exists? ? Book.find(params[:quote]["book"])
     : Book.create(:name => params[:quote]["book"], author: author)
-
-  #book = Book.where(_id: params[:quote]["book"]) || Book.where(author: author, name: params[:quote]["book"])
-  #unless book.exists?
-  #  book = Book.create(:name => params[:quote]["book"], author: author)
-  #else
-  #  book = book.first
-  #end
 
   quote = Quote.create(
     :text => params[:quote]["text"],
@@ -114,24 +107,24 @@ end
 
 get '/authors' do
   @authors = Author.all.asc(:name)
-  slim :authors
+  slim :authors, :locals=>{:title => "Citations - Auteurs"}
 end
 
 get '/books' do
   @books = Book.all.asc(:name)
-  slim :books
+  slim :books, :locals=>{:title => "Citations - Livres"}
 end
 
 get '/author/:id' do |id|
   @author = Author.find(id)
   @quotes = Quote.where(author: id).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id)
-  slim :author
+  slim :author, :locals=>{:title => "Citations - #{@author.name}"}
 end
 
 get '/book/:id' do |id|
   @book = Book.find(id)
   @quotes = Quote.where(book: id).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id)
-  slim :book
+  slim :book, :locals=>{:title => "Citations - #{@book.author.name}, #{@book.name}"}
 end
 
 get '/about' do
