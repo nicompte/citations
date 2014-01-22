@@ -1,6 +1,11 @@
 h1 Auteurs
+- previous_letter = ""
 - @authors.each do |author|
   div
+    - letter = author.name[0]
+    - if previous_letter != letter
+      - previous_letter = letter
+      h2.letter= letter
     a.author href="/author/#{author._id}"
       = author.name
       | &nbsp;(

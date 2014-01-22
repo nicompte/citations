@@ -1,8 +1,13 @@
 h1 Livres
+- previous_letter = ""
 - @books.each do |book|
   - count = Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
   - if count > 0
     div
+      - letter = book.name[0]
+      - if previous_letter != letter
+        - previous_letter = letter
+        h2.letter= letter
       a.book href="/book/#{book._id}"
         = book.name
         | &nbsp;(

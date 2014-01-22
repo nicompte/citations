@@ -506,6 +506,13 @@ h2.quotes {
   font-weight: 300;
   color: #b10101;
 }
+h2.letter {
+  font-size: 1.3em;
+  font-family: Lato;
+  font-weight: 300;
+  color: #b10101;
+  margin-top: 10px;
+}
 a {
   text-decoration: none;
   color: #888;
