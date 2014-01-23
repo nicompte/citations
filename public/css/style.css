@@ -514,13 +514,19 @@ h2.letter {
   margin-top: 10px;
 }
 a {
+  outline: none;
   text-decoration: none;
   color: #888;
 }
 a:hover,
 a:hover p {
+  outline: none;
   color: #b10101!important;
   text-decoration: none;
+}
+a:active,
+a:active p {
+  outline: none;
 }
 h1 a,
 h2 a {

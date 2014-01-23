@@ -40,9 +40,9 @@ html
             - else
               a#login-link href="/login" Connexion
 
-        form.search-block
+        form.search-block method="get" action="search"
           .input-group
-            input.form-control type="text" placeholder="Recherche"
+            input.form-control type="text" placeholder="Recherche" value="#{@query}" name="q"
             span.input-group-btn
               button.btn.btn-default
                 i.fa.fa-search
