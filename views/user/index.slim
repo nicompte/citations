@@ -1,0 +1,56 @@
+h1= @user.name
+
+h2.books AUTEURS
+.book-list
+  - if @elems[:authors].length == 0
+    span Aucun auteur
+  - @elems[:authors].each do |author|
+    - count = Quote.where(author: author).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
+    - if count > 0
+      div.book
+        a href="/author/#{author.id}"
+          = author.name
+          | &nbsp;(
+          => count
+          - if count == 1
+            | citation)
+          - else
+            | citations)
+
+h2.books LIVRES
+.book-list
+  - if @elems[:books].length == 0
+    span Aucun livre
+  - @elems[:books].each do |book|
+    - count = Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
+    - if count > 0
+      div.book
+        a href="/book/#{book.id}"
+          = book.name
+          | &nbsp;(
+          => count
+          - if count == 1
+            | citation)
+          - else
+            | citations)
+
+h2.quotes CITATIONS (#{@quotes.length})
+- @quotes.each do |quote|
+  .quote
+    a href="/quote/#{quote._id}"
+      p.text
+        =quote.text[0..600]
+        - if quote.text.length > 601
+          span
+            | ...
+    input.hidden type="hidden" value="#{quote.hidden}"
+    span.author
+      a href="/author/#{quote.author.id}"= quote.author.name
+    - unless quote.book.nil? || quote.book.name.nil? || quote.book.name == ''
+      span.book
+        a href="/book/#{quote.book.id}"= quote.book.name
+    - unless session[:user].nil? || session[:user]._id != quote.user_id
+      a.edit-quote data-id="#{quote._id}" href="/quote/#{quote._id}/edit"
+        i.fa.fa-pencil
+      a.delete-quote data-id="#{quote._id}" href="/quote/#{quote._id}/delete"
+        i.fa.fa-trash-o

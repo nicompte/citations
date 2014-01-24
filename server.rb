@@ -141,6 +141,27 @@ get '/search' do
   slim :search
 end
 
+get '/user/:id' do |id|
+  @user = User.find(id)
+  @quotes = Quote.where(user: @user).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id)
+
+  @elems = @quotes.inject({authors: [], books:[]}) do |elems, quote|
+    #unless authors.any? {|author| quote.author._id == author._id}
+    unless elems[:authors].include? quote.author
+      elems[:authors].push(quote.author)
+    end
+    unless elems[:books].include? quote.book
+      elems[:books].push(quote.book)
+    end
+    elems
+  end
+
+  @elems[:authors].sort_by! { |a| a["name"] }
+  @elems[:books].sort_by! { |b| b["name"] }
+
+  slim :"user/index"
+end
+
 get '/about' do
   slim :about
 end
@@ -153,7 +174,7 @@ get '/*/?' do
   if session[:user].nil?
     @quotes = Quote.where(hidden: false).desc(:_id).limit(20)
   else
-    @quotes = Quote.all.desc(:_id).limit(20)
+    @quotes = Quote.all.desc(:_id)
   end
   slim :index
 end
