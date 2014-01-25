@@ -51,6 +51,8 @@ post '/quote' do
   author = Author.where(_id: params[:quote]["author"]).exists? ? Author.find(params[:quote]["author"])
     : Author.find_or_create_by(name: params[:quote]["author"])
 
+  params[:quote]["book"] = "Hors livre" if params[:quote]["book"].nil? || params[:quote]["book"] == ""
+
   book = Book.where(_id: params[:quote]["book"]).exists? ? Book.find(params[:quote]["book"])
     : Book.create(:name => params[:quote]["book"], author: author)
 
@@ -174,7 +176,7 @@ get '/*/?' do
   if session[:user].nil?
     @quotes = Quote.where(hidden: false).desc(:_id).limit(20)
   else
-    @quotes = Quote.all.desc(:_id)
+    @quotes = Quote.all.desc(:_id).limit(20)
   end
   slim :index
 end
