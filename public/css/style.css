@@ -545,6 +545,9 @@ h2 a {
 #disqus_thread {
   margin-top: 50px;
 }
+.pagination-container {
+  text-align: center;
+}
 .pagination {
   text-align: center;
   display: inline-block;

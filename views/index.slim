@@ -20,4 +20,4 @@ h1.home Dernières citations
       a.delete-quote data-id="#{quote._id}" href="/quote/#{quote._id}/delete"
         i.fa.fa-trash-o
 
-div == paginate @quotes
+div.pagination-container == paginate @quotes
