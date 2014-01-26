@@ -585,17 +585,9 @@ h2 a {
 .pagination > span > span:focus {
   background-color: #eeeeee;
 }
-.pagination > .current > a,
-.pagination > .current > span,
-.pagination > .current > a:hover,
-.pagination > .current > span:hover,
-.pagination > .current > a:focus,
-.pagination > .current > span:focus {
-  z-index: 2;
-  color: #ffffff;
-  background-color: #428bca;
-  border-color: #428bca;
-  cursor: default;
+.pagination .current {
+  background: #eee;
+  color: #aaa;
 }
 .pagination > .disabled > span,
 .pagination > .disabled > span:hover,
