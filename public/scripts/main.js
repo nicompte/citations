@@ -1,5 +1,14 @@
 $(function(){
 
+    /*
+  * PAGINATION
+  */
+
+  $('.pagination .first a').html("«");
+  $('.pagination .prev a').html("‹");
+  $('.pagination .next a').html("›");
+  $('.pagination .last a').html("»");
+
   /*
   * DELETE
   */
@@ -30,19 +39,6 @@ $(function(){
     $('#addQuoteModal').modal('show');
     return false;
   });
-
-  // $('#add').on('submit', function(){
-  //   $.ajax({
-  //     url: '/quote/' + $('#quote-to-edit').val(),
-  //     method: 'put',
-  //     data: $(this).serialize()
-  //   }).done(function(){
-  //     window.location.reload();
-  //   }).fail(function(){
-  //     alert('Erreur lors de la modification.');
-  //   });
-  //   return false;
-  // });
 
   $('#author').selectize({
       valueField: '_id', labelField: 'name',
