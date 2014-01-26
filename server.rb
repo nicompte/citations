@@ -6,9 +6,9 @@ require './model.rb'
 require 'json'
 require 'newrelic_rpm'
 
-require "better_errors"
-
 configure :development do
+  require "better_errors"
+  require "binding_of_caller"
   use BetterErrors::Middleware
   BetterErrors.application_root = __dir__
 end
