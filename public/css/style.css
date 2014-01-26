@@ -593,6 +593,9 @@ h2 a {
   background: #eee;
   color: #aaa;
 }
+.pagination .color {
+  color: #888;
+}
 .pagination > .disabled > span,
 .pagination > .disabled > span:hover,
 .pagination > .disabled > span:focus,
