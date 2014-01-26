@@ -1,4 +1,5 @@
 require 'mongoid'
+require 'kaminari/sinatra'
 
 class Author
   include Mongoid::Document
@@ -9,6 +10,7 @@ end
 
 class Book
   include Mongoid::Document
+  paginates_per 25
   field :name, type: String
   field :year, type: Integer
   has_many :quote

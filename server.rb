@@ -6,9 +6,21 @@ require './model.rb'
 require 'json'
 require 'newrelic_rpm'
 
+require "better_errors"
+
+configure :development do
+  use BetterErrors::Middleware
+  BetterErrors.application_root = __dir__
+end
+
 Mongoid.load!("config/mongoid.yml", :production)
 
 require 'mongoid'
+
+require 'kaminari/sinatra'
+require 'padrino-helpers'
+#require 'bootstrap-kaminari-views'
+register Kaminari::Helpers::SinatraHelpers
 
 enable :sessions
 
@@ -124,13 +136,13 @@ end
 
 get '/author/:id' do |id|
   @author = Author.find(id)
-  @quotes = Quote.where(author: id).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id)
+  @quotes = Quote.where(author: id).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
   slim :author, :locals=>{:title => "Citations - #{@author.name}"}
 end
 
 get '/book/:id' do |id|
   @book = Book.find(id)
-  @quotes = Quote.where(book: id).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id)
+  @quotes = Quote.where(book: id).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
   slim :book, :locals=>{:title => "Citations - #{@book.author.name}, #{@book.name}"}
 end
 
@@ -138,14 +150,14 @@ get '/search' do
   q = params[:q]
   @authors = Author.where(name: Regexp.new(q, true)).asc(:name)
   @books = Book.where(name: Regexp.new(q, true)).asc(:name)
-  @quotes = Quote.where(text: Regexp.new(q, true)).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id)
+  @quotes = Quote.where(text: Regexp.new(q, true)).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
   @query = q
   slim :search
 end
 
 get '/user/:id' do |id|
   @user = User.find(id)
-  @quotes = Quote.where(user: @user).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id)
+  @quotes = Quote.where(user: @user).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
 
   @elems = @quotes.inject({authors: [], books:[]}) do |elems, quote|
     #unless authors.any? {|author| quote.author._id == author._id}
@@ -173,11 +185,7 @@ get '/ping' do
 end
 
 get '/*/?' do
-  if session[:user].nil?
-    @quotes = Quote.where(hidden: false).desc(:_id).limit(20)
-  else
-    @quotes = Quote.all.desc(:_id).limit(20)
-  end
+  @quotes = Quote.or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
   slim :index
 end
 
