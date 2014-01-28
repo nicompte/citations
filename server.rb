@@ -87,6 +87,7 @@ get '/user/:id/token/:token' do |user, token|
   user = User.find(user)
   if user.token == token
     user.validated = true
+    user.save
   end
   redirect '/'
 end
