@@ -1,10 +1,10 @@
-#loginModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true"
+#registerModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true"
   .modal-dialog
     .modal-content
-      form#login
+      form#register action="/register" method="post"
         .modal-header
           button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
-          h4#loginModalLabel.modal-title Connexion
+          h4#registerModalLabel.modal-title Inscription
 
         .modal-body
           h4 Veuillez renseigner vos identifiants
@@ -12,12 +12,17 @@
             label
               | Identifiant de connexion
               span.required *
-            input.form-control type="text" placeholder="Nom" name="user"
+            input.form-control type="text" placeholder="Nom" name="user[name]"
+          .form-group
+            label
+              | Email
+              span.required *
+            input.form-control type="email" placeholder="Email" name="user[email]"
           .form-group
             label
               | Mot de passe
               span.required *
-            input.form-control type="password" placeholder="Mot de passe" name="password"
+            input.form-control type="password" placeholder="Mot de passe" name="user[password]"
 
         .modal-footer
           button.btn.btn-default type="button" data-dismiss="modal" Annuler

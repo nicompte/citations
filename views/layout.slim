@@ -34,11 +34,15 @@ html
             a href="/authors" Auteurs
           li
             a href="/books" Livres
-          li
-            - unless session[:user].nil?
+
+          - unless session[:user].nil?
+            li
               a href="/logout" Déconnexion
-            - else
+          - else
+            li
               a#login-link href="/login" Connexion
+            li
+              a#register-link href="/register" Inscription
 
         form.search-block method="get" action="/search"
           .input-group
@@ -51,6 +55,7 @@ html
     .content == yield
 
     ==Slim::Template.new('views/modals/login-modal.slim').render
+    ==Slim::Template.new('views/modals/register-modal.slim').render
     ==Slim::Template.new('views/modals/create-modal.slim').render
     ==Slim::Template.new('views/modals/edit-modal.slim').render
     ==Slim::Template.new('views/modals/delete-modal.slim').render
@@ -59,6 +64,7 @@ html
     script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"
     script src="//cdnjs.cloudflare.com/ajax/libs/selectize.js/0.6.14/selectize.min.js"
     script src="/scripts/main.js"
+    script type='text/javascript' id='lt_ws' src='http://localhost:49826/socket.io/lighttable/ws.js'
 
     javascript:
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

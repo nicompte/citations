@@ -30,5 +30,8 @@ class User
   include Mongoid::Document
   field :name, type: String
   field :password, type: String
+  field :email, type: String
+  field :validated, type: Boolean
+  field :token, type: String
   has_many :quotes
 end

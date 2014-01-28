@@ -126,4 +126,17 @@ $(function(){
     return false;
   });
 
+    /*
+  * LOGIN
+  */
+
+  $('#register-link').on('click', function(){
+    $('#registerModal').modal('show');
+    return false;
+  });
+
+  $('#register').on('submit', function(){
+
+  });
+
 });
