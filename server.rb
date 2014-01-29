@@ -1,6 +1,13 @@
 # encoding: utf-8
 
 require 'sinatra'
+
+#use Rack::Static,
+#  :urls => ["/images", "/scripts", "/css"],
+#  :root => "public"
+
+use Rack::Deflater
+
 require 'slim'
 require './model.rb'
 require 'json'

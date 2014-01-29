@@ -8,13 +8,12 @@ html
 
     title= locals[:title] || 'Citations'
 
-    link href='http://fonts.googleapis.com/css?family=Lato:100,300|Source+Sans+Pro:300,400,600,300italic|Bad+Script:400' rel='stylesheet' type='text/css'
+  body
+
+    link href='http://fonts.googleapis.com/css?family=Lato:100,300|Source+Sans+Pro:300,400,300italic|Bad+Script:400' rel='stylesheet' type='text/css'
     link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"
     link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"
-
     link href="/css/style.css" rel="stylesheet" type="text/css"
-
-  body
 
     nav.navbar.navbar-default
 
@@ -60,7 +59,7 @@ html
     ==Slim::Template.new('views/modals/edit-modal.slim').render
     ==Slim::Template.new('views/modals/delete-modal.slim').render
 
-    script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"
+    script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"
     script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"
     script src="//cdnjs.cloudflare.com/ajax/libs/selectize.js/0.6.14/selectize.min.js"
     script src="/scripts/main.min.js"
