@@ -28,8 +28,8 @@ Mail.defaults do
     :address   => "smtp.sendgrid.net",
     :port      => 587,
     :domain    => "barbotte.net",
-    :user_name => "app21303591@heroku.com",
-    :password  => "jh6t6fta",
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password  => ENV['SENDGRID_PASSWORD'],
     :authentication => 'plain',
     :enable_starttls_auto => true
   }
