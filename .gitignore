@@ -1,2 +1,2 @@
-log
-log/newrelic_agent.log
+log/*
+.bundle/*
