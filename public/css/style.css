@@ -76,6 +76,8 @@ body{font-family:'Source Sans Pro';}
 .quote:hover i{display:inline;}
 .quote .user{margin-top:5px;font-size:0.9em;color:#aaa;}.quote .user a{color:#999;}
 .book-list{margin-top:30px;}
+.author-block i{font-size:0.8em;margin-left:5px;display:none;}
+.author-block:hover i{display:inline;}
 form{max-width:500px;}form .required{margin-left:4px;color:red;}
 form textarea{min-height:100px;}
 .modal form{max-width:100%;}

@@ -126,8 +126,8 @@ $(function(){
     return false;
   });
 
-    /*
-  * LOGIN
+  /*
+  * REGISTER
   */
 
   $('#register-link').on('click', function(){
@@ -137,6 +137,17 @@ $(function(){
 
   $('#register').on('submit', function(){
 
+  });
+
+  /*
+  * EDIT AUTHOR
+  */
+
+  $('.edit-author').on('click', function(){
+    $('#author-to-edit').val($(this).attr('data-id'));
+    $('#author-to-edit-author').val($(this).attr('data-value'));
+    $('#editAuthorModal').modal('show');
+    return false;
   });
 
 });

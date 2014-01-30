@@ -1,7 +1,7 @@
 h1 Auteurs
 - previous_letter = ""
 - @authors.each do |author|
-  div
+  div.author-block
     - letter = author.name[0].capitalize
     - if previous_letter != letter
       - previous_letter = letter
@@ -15,3 +15,8 @@ h1 Auteurs
         | citation)
       - else
         | citations)
+    - unless session[:user].nil? || session[:user][:role].nil? || session[:user][:role] != 'admin'
+      a.edit-author data-id="#{author._id}" data-value="#{author.name}" href="/author/#{author._id}/edit"
+        i.fa.fa-pencil
+
+==Slim::Template.new('views/modals/edit-author-modal.slim').render

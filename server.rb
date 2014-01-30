@@ -99,10 +99,23 @@ get '/user/:id/token/:token' do |user, token|
   redirect '/'
 end
 
-get '/users' do
-  redirect '/' if session[:user].nil? || session[:user][:role] != "admin"
+get '/admin/*' do
+  if session[:user].nil? || session[:user][:role] != "admin"
+    redirect '/'
+  end
+  pass
+end
+
+get '/admin/users' do
   @users = User.all.asc(:name)
   slim :users
+end
+
+post '/admin/author/edit' do
+  author = Author.find params[:id]
+  author.name = params[:name]
+  author.save
+  redirect '/authors'
 end
 
 get '/quote' do

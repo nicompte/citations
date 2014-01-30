@@ -1,0 +1,20 @@
+#editAuthorModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="editAuthorModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      form#edit-author action="/admin/author/edit" method="post"
+        .modal-header
+          button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+          h4#editAuthorModalLabel.modal-title Édition
+
+        .modal-body
+          h4 Édition de l'auteur
+          input#author-to-edit type="hidden" name="id"
+          .form-group
+            label
+              | Auteur
+              span.required *
+            input#author-to-edit-author.form-control type="text" placeholder="Auteur" required="required" name="name"
+
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal" Annuler
+          button.btn.btn-default type="submit" Valider
