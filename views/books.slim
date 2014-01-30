@@ -4,7 +4,7 @@ h1 Livres
   - count = Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
   - if count > 0
     div
-      - letter = book.name[0]
+      - letter = book.name[0].capitalize
       - if previous_letter != letter
         - previous_letter = letter
         h2.letter= letter

@@ -1,0 +1,17 @@
+h1 Utilisateurs
+- previous_letter = ""
+- @users.each do |user|
+  div
+    - letter = user.name[0].capitalize
+    - if previous_letter != letter
+      - previous_letter = letter
+      h2.letter= letter
+    a.author href="/user/#{user._id}"
+      = user.name
+      | &nbsp;(
+      - count = Quote.where(user: user._id).count
+      => count
+      - if count <= 1
+        | citation)
+      - else
+        | citations)

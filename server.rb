@@ -99,6 +99,12 @@ get '/user/:id/token/:token' do |user, token|
   redirect '/'
 end
 
+get '/users' do
+  redirect '/' if session[:user].nil? || session[:user][:role] != "admin"
+  @users = User.all.asc(:name)
+  slim :users
+end
+
 get '/quote' do
   redirect '/' if session[:user].nil?
   slim :new_quote

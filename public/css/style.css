@@ -84,7 +84,7 @@ h1,h2,h3{margin-top:30px;margin-bottom:10px;}
 h1{font-family:"Bad Script";font-size:1.7em;margin-bottom:20px;}h1 .book{font-family:"Source Sans Pro";font-weight:300;}
 h1.home{margin-bottom:30px;}
 h2.books,h2.quotes{font-size:1.3em;font-family:Lato;font-weight:300;color:#b10101;}
-h2.letter{font-size:1.3em;font-family:Lato;font-weight:300;color:#b10101;margin-top:10px;}
+h2.letter{font-size:1.3em;font-family:Lato;font-weight:300;color:#b10101;margin-top:10px;text-transform:uppercase;}
 a{outline:none;text-decoration:none;color:#888;}a:hover,a:hover p{outline:none;color:#b10101!important;text-decoration:none;}
 a:active,a:active p{outline:none;}
 h1 a,h2 a{color:#333;}

@@ -2,7 +2,7 @@ h1 Auteurs
 - previous_letter = ""
 - @authors.each do |author|
   div
-    - letter = author.name[0]
+    - letter = author.name[0].capitalize
     - if previous_letter != letter
       - previous_letter = letter
       h2.letter= letter
