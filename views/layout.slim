@@ -34,6 +34,15 @@ html
           li
             a href="/books" Livres
 
+          - unless session[:user].nil? || session[:user][:role].nil? || session[:user][:role] != "admin"
+            li.dropdown
+              a data-toggle="dropdown" href="#"
+                | Admin
+                span.caret
+              ul.dropdown-menu role="menu" aria-labellby="dLabel"
+                 li
+                    a href="/users" Utilisateurs
+
           - unless session[:user].nil?
             li
               a href="/logout" Déconnexion
