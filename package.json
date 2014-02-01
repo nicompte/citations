@@ -1,11 +1,10 @@
 {
-  "name": "design",
+  "name": "Citations",
   "version": "1.0.0",
-  "description": "Barbotte",
+  "description": "citations",
+  "homepage": "http://citations.barbotte.net",
+  "repository": "git@bitbucket.org:nicompte/citations.git",
   "dependencies": {
-    "grunt": "~0.4.1",
-    "grunt-cli": "~0.1.6",
-    "grunt-contrib-less": "~0.5.0rc7"
   },
   "engines": {
     "node": "0.10.x",
@@ -15,6 +14,8 @@
     "test": "grunt travis --verbose"
   },
   "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-less": "~0.5.0rc7",
     "grunt-contrib-watch": "~0.2.0",
     "grunt-contrib-uglify": "~0.3.2"
   }
