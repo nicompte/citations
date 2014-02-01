@@ -1,0 +1,20 @@
+# encoding: utf-8
+
+get '/admin/*' do
+  if session[:user].nil? || session[:user][:role] != "admin"
+    redirect '/'
+  end
+  pass
+end
+
+get '/admin/users' do
+  @users = User.all.asc(:name)
+  slim :users
+end
+
+post '/admin/author/edit' do
+  author = Author.find params[:id]
+  author.name = params[:name]
+  author.save
+  redirect '/authors'
+end

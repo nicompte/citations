@@ -36,7 +36,6 @@ module.exports = function (grunt) {
   });
 
   // Load tasks.
-
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');

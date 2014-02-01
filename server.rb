@@ -1,19 +1,19 @@
 # encoding: utf-8
 
-require 'sinatra'
+%w( 
+  sinatra slim json kaminari/sinatra padrino-helpers  
+  securerandom digest mail
+  newrelic_rpm
+  mongoid
+  )
+  .map {|gem| require gem}
 
-#use Rack::Static,
-#  :urls => ["/images", "/scripts", "/css"],
-#  :root => "public"
+# Configuration
 
 use Rack::Deflater
-
-require 'slim'
-require './model.rb'
-require 'json'
-require 'newrelic_rpm'
-require 'securerandom'
-require 'digest'
+enable :sessions
+set :session_secret, ENV['SESSION_SECRET']
+register Kaminari::Helpers::SinatraHelpers
 
 configure :development do
   require "better_errors"
@@ -23,12 +23,6 @@ configure :development do
 end
 
 Mongoid.load!("config/mongoid.yml", :production)
-
-require 'mongoid'
-
-require 'kaminari/sinatra'
-require 'padrino-helpers'
-require 'mail'
 
 Mail.defaults do
   delivery_method :smtp, {
@@ -42,254 +36,8 @@ Mail.defaults do
   }
 end
 
-register Kaminari::Helpers::SinatraHelpers
+# Load models and routes
 
-enable :sessions
+Dir["./app/models/*.rb"].each { |file| require file }
+Dir["./app/controllers/*.rb"].each { |file| require file }
 
-post '/login' do
-  content_type :json
-  user = User.where(name: params[:user])
-  if user.exists? && user.first.password == Digest::MD5.hexdigest(params[:password])
-    if user.first.validated == false
-      return {:login => "ko", :message => "Veuillez valider votre email."}.to_json
-    end
-    session[:user] = user.first
-    return {:login => "ok"}.to_json
-  else
-    status 401
-    return {:login => "ko"}.to_json
-  end
-end
-
-get '/logout' do
-  session[:user] = nil
-  redirect "/"
-end
-
-post '/register' do
-
-  alreadyExisting = User.or( {name: params[:user]["name"]}, {email: params[:user]["email"]} )
-  redirect '/' unless alreadyExisting.nil? or !alreadyExisting.exists?
-
-  params[:user]["validated"] = false
-  params[:user]["token"] = SecureRandom.hex(15)
-  params[:user]["password"] = Digest::MD5.hexdigest params[:user]["password"]
-  user = User.create(params[:user])
-  url = "http://citations.barbotte.net/user/#{user._id}/token/#{params[:user]['token']}"
-
-  mail = Mail.new
-
-  mail.to = params[:user]["email"]
-  mail.from = 'no-reply@barbotte.net'
-  mail.subject = "Validation de l'email citations.barbotte.net"
-  mail.content_type = 'text/html; charset=UTF-8'
-  mail.body = Slim::Template.new('./views/register-mail.slim').render([{:url => url, :name => params[:user]["name"]}])
-
-  mail.deliver!
-
-  redirect '/'
-end
-
-get '/user/:id/token/:token' do |user, token|
-  user = User.find(user)
-  if user.token == token
-    user.validated = true
-    user.save
-  end
-  redirect '/'
-end
-
-get '/admin/*' do
-  if session[:user].nil? || session[:user][:role] != "admin"
-    redirect '/'
-  end
-  pass
-end
-
-get '/admin/users' do
-  @users = User.all.asc(:name)
-  slim :users
-end
-
-post '/admin/author/edit' do
-  author = Author.find params[:id]
-  author.name = params[:name]
-  author.save
-  redirect '/authors'
-end
-
-get '/me/*' do
-  if session[:user].nil?
-    redirect '/'
-  end
-  pass
-end
-
-get '/me/quotes' do
-  @quotes = Quote.where( user: session[:user] ).desc(:_id).page(params[:page])
-  slim :index, :locals=>{:title => "Citations - Mes citations", :h1 => "Mes citations"}
-end
-
-get '/me/authors' do
-
-  auth_id = Quote.where(user: session[:user]).distinct(:author)
-  @authors = Author.find(auth_id).sort_by! { |a| a["name"] }
-
-  slim :authors, :locals=>{:title => "Citations - Mes auteurs", :h1 => "Mes auteurs"}
-end
-
-get '/me/books' do
-
-  book_id = Quote.where(user: session[:user]).distinct(:book)
-  @books = Book.find(book_id).sort_by! { |a| a["name"] }
-
-  slim :books, :locals=>{:title => "Citations - Mes livres", :h1 => "Mes livres"}
-end
-
-get '/quote' do
-  redirect '/' if session[:user].nil?
-  slim :new_quote
-end
-
-get '/quote/:id' do |id|
-  @quote = Quote.find(id)
-  redirect '/' if @quote.hidden && session[:user] != @quote.user
-  slim :quote, :locals=>{:title => "Citations - #{@quote.author.name}, #{@quote.book.name}"}
-end
-
-get '/quote/rand' do
-  count = Quote.or( {hidden: false}, {hidden: true, user: session[:user]} ).count
-  return count
-end
-
-post '/quote' do
-  redirect '/' if session[:user].nil?
-
-  author = Author.where(_id: params[:quote]["author"]).exists? ? Author.find(params[:quote]["author"])
-    : Author.find_or_create_by(name: params[:quote]["author"])
-
-  params[:quote]["book"] = "Hors livre" if params[:quote]["book"].nil? || params[:quote]["book"] == ""
-
-  book = Book.where(_id: params[:quote]["book"]).exists? ? Book.find(params[:quote]["book"])
-    : Book.create(:name => params[:quote]["book"], author: author)
-
-  quote = Quote.create(
-    :text => params[:quote]["text"],
-    :hidden => !params[:quote]["hidden"].nil?,
-    book: book,
-    user: session[:user]
-  )
-
-  session[:user].quotes.push(quote)
-  author.quotes.push(quote)
-
-  redirect "/"
-end
-
-delete '/quote/:id' do |id|
-  content_type :json
-  quote = Quote.find(id)
-  if session[:user] != quote.user
-    status 401
-    return {:delete => "ko"}.to_json
-  end
-  book = quote.book
-  author = quote.author
-  quote.delete
-  if Quote.where(book: book).length == 0
-    book.delete
-  end
-  if Quote.where(author: author).length == 0
-    author.delete
-  end
-
-  return {:delete => "ok"}.to_json
-end
-
-put '/quote/:id' do |id|
-  content_type :json
-  quote = Quote.find(id)
-  if session[:user] != quote.user
-    status 401
-    return {:edit => "ko"}.to_json
-  end
-  quote[:text] = params[:quote]["text"]
-  quote[:hidden] = !params[:quote]["hidden"].nil?
-  quote.save
-  return {:delete => "ok"}.to_json
-end
-
-get '/author/find/:name' do |name|
-  content_type :json
-  Author.where(name: Regexp.new(name, true)).limit(10).to_json
-end
-
-get '/book/find/author/:author/book/:book' do |author, book|
-  content_type :json
-  Book.where(author: author, name: Regexp.new(book, true)).limit(10).to_json
-end
-
-get '/authors' do
-  @authors = Author.all.asc(:name)
-  slim :authors, :locals=>{:title => "Citations - Auteurs"}
-end
-
-get '/books' do
-  @books = Book.all.asc(:name)
-  slim :books, :locals=>{:title => "Citations - Livres"}
-end
-
-get '/author/:id' do |id|
-  @author = Author.find(id)
-  @quotes = Quote.where(author: id).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
-  slim :author, :locals=>{:title => "Citations - #{@author.name}"}
-end
-
-get '/book/:id' do |id|
-  @book = Book.find(id)
-  @quotes = Quote.where(book: id).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
-  slim :book, :locals=>{:title => "Citations - #{@book.author.name}, #{@book.name}"}
-end
-
-get '/search' do
-  q = params[:q]
-  @authors = Author.where(name: Regexp.new(q, true)).asc(:name)
-  @books = Book.where(name: Regexp.new(q, true)).asc(:name)
-  @quotes = Quote.where(text: Regexp.new(q, true)).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
-  @query = q
-  slim :search
-end
-
-get '/user/:id' do |id|
-  @user = User.find(id)
-  @quotes = Quote.where(user: @user).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
-
-  book_id = @quotes.distinct(:book)
-  @books = Book.find(book_id).sort_by! { |a| a["name"] }
-
-  auth_id = @quotes.distinct(:author)
-  @authors = Author.find(auth_id).sort_by! { |a| a["name"] }
-
-  slim :"user/index"
-end
-
-get '/about' do
-  slim :about
-end
-
-get '/ping' do
-  'ok'
-end
-
-get '/*/?' do
-  @quotes = Quote.or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
-  slim :index
-end
-
-not_found do
-  'Page non trouvée.'
-end
-
-error do
-  'Erreur - ' + env['sinatra.error']
-end
