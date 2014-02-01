@@ -30,7 +30,7 @@ $(function(){
       url: '/quote/' + $('#quote-to-delete').val(),
       method: 'delete'
     }).done(function(){
-      window.location.reload();
+      window.location.href = "/";
     }).fail(function(){
       alert('Erreur lors de la suppression.');
     });
