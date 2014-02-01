@@ -1,0 +1,20 @@
+#editBookModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="editBookModalLabel" aria-hidden="true"
+  .modal-dialog
+    .modal-content
+      form#edit-book action="/admin/book/edit" method="post"
+        .modal-header
+          button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+          h4#editBookModalLabel.modal-title Édition
+
+        .modal-body
+          h4 Édition du livre
+          input#book-to-edit type="hidden" name="id"
+          .form-group
+            label
+              | Livre
+              span.required *
+            input#book-to-edit-book.form-control type="text" placeholder="Livre" required="required" name="name"
+
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal" Annuler
+          button.btn.btn-default type="submit" Valider

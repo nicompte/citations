@@ -156,4 +156,15 @@ $(function(){
     return false;
   });
 
+  /*
+  * EDIT BOOK
+  */
+
+  $('.edit-book').on('click', function(){
+    $('#book-to-edit').val($(this).attr('data-id'));
+    $('#book-to-edit-book').val($(this).attr('data-value'));
+    $('#editBookModal').modal('show');
+    return false;
+  });
+
 });

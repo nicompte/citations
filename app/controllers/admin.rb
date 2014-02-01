@@ -18,3 +18,10 @@ post '/admin/author/edit' do
   author.save
   redirect '/authors'
 end
+
+post '/admin/book/edit' do
+  book = Book.find params[:id]
+  book.name = params[:name]
+  book.save
+  redirect '/books'
+end
