@@ -44,8 +44,21 @@ html
                     a href="/admin/users" Utilisateurs
 
           - unless session[:user].nil?
-            li
-              a href="/logout" Déconnexion
+            li.dropdown
+              a data-toggle="dropdown" href="#"
+                | Mon compte
+                span.caret
+              ul.dropdown-menu role="menu" aria-labellby="dLabel"
+                li
+                  a href="/me/quotes" Mes citations
+                li
+                  a href="/me/authors" Mes auteurs
+                li
+                  a href="/me/books" Mes livres
+                li
+                  a href="/me/settings" Paramètres
+                li
+                  a href="/logout" Déconnexion
           - else
             li
               a#login-link href="/login" Connexion

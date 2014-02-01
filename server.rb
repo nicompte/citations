@@ -118,6 +118,34 @@ post '/admin/author/edit' do
   redirect '/authors'
 end
 
+get '/me/*' do
+  if session[:user].nil?
+    redirect '/'
+  end
+  pass
+end
+
+get '/me/quotes' do
+  @quotes = Quote.where( user: session[:user] ).desc(:_id).page(params[:page])
+  slim :index, :locals=>{:title => "Citations - Mes citations", :h1 => "Mes citations"}
+end
+
+get '/me/authors' do
+
+  auth_id = Quote.where(user: session[:user]).distinct(:author)
+  @authors = Author.find(auth_id).sort_by! { |a| a["name"] }
+
+  slim :authors, :locals=>{:title => "Citations - Mes auteurs", :h1 => "Mes auteurs"}
+end
+
+get '/me/books' do
+
+  book_id = Quote.where(user: session[:user]).distinct(:book)
+  @books = Book.find(book_id).sort_by! { |a| a["name"] }
+
+  slim :books, :locals=>{:title => "Citations - Mes livres", :h1 => "Mes livres"}
+end
+
 get '/quote' do
   redirect '/' if session[:user].nil?
   slim :new_quote
@@ -236,19 +264,11 @@ get '/user/:id' do |id|
   @user = User.find(id)
   @quotes = Quote.where(user: @user).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
 
-  @elems = @quotes.inject({authors: [], books:[]}) do |elems, quote|
-    #unless authors.any? {|author| quote.author._id == author._id}
-    unless elems[:authors].include? quote.author
-      elems[:authors].push(quote.author)
-    end
-    unless elems[:books].include? quote.book
-      elems[:books].push(quote.book)
-    end
-    elems
-  end
+  book_id = @quotes.distinct(:book)
+  @books = Book.find(book_id).sort_by! { |a| a["name"] }
 
-  @elems[:authors].sort_by! { |a| a["name"] }
-  @elems[:books].sort_by! { |b| b["name"] }
+  auth_id = @quotes.distinct(:author)
+  @authors = Author.find(auth_id).sort_by! { |a| a["name"] }
 
   slim :"user/index"
 end

@@ -2,9 +2,9 @@ h1= @user.name
 
 h2.books AUTEURS
 .book-list
-  - if @elems[:authors].length == 0
+  - if @authors.length == 0
     span Aucun auteur
-  - @elems[:authors].each do |author|
+  - @authors.each do |author|
     - count = Quote.where(author: author).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
     - if count > 0
       div.book
@@ -19,9 +19,9 @@ h2.books AUTEURS
 
 h2.books LIVRES
 .book-list
-  - if @elems[:books].length == 0
+  - if @books.length == 0
     span Aucun livre
-  - @elems[:books].each do |book|
+  - @books.each do |book|
     - count = Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
     - if count > 0
       div.book

@@ -1,4 +1,4 @@
-h1 Livres
+h1= locals[:h1] || 'Livres'
 - previous_letter = ""
 - @books.each do |book|
   - count = Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count

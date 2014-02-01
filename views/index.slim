@@ -1,4 +1,4 @@
-h1.home Dernières citations
+h1.home= locals[:h1] || 'Dernières citations'
 
 - @quotes.each do |quote|
   .quote
