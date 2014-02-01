@@ -1,6 +1,12 @@
 $(function(){
 
-    /*
+  /*
+  * BOOTSTRAP
+  */
+  $('#private-quote-label').tooltip();
+
+
+  /*
   * PAGINATION
   */
 

@@ -4,23 +4,7 @@ h1.book
   i.book
     a href="/book/#{@quote.book._id}"= @quote.book.name
 
-.quote
-  p.text= @quote.text
-  input.hidden type="hidden" value="#{@quote.hidden}"
-  span.author
-    a href="/author/#{@quote.author.id}"= @quote.author.name
-  - unless @quote.book.nil? || @quote.book.name.nil? || @quote.book.name == ''
-    span.book
-      a href="/book/#{@quote.book.id}"= @quote.book.name
-  - unless session[:user].nil? || session[:user]._id != @quote.user_id
-    a.edit-quote data-id="#{@quote._id}" href="/quote/#{@quote._id}/edit"
-      i.fa.fa-pencil
-    a.delete-quote data-id="#{@quote._id}" href="/quote/#{@quote._id}/delete"
-      i.fa.fa-trash-o
-
-  div.user
-    |  Soumis par
-    a< href="/user/#{@quote.user._id}"= @quote.user.name
+== slim :'partials/quote', locals: {:quote => @quote, :user => session[:user], :showUser => true}
 
 #disqus_thread
 
@@ -37,28 +21,3 @@ javascript:
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
-
-/
-  #livefyre-comments
-  script src="http://zor.livefyre.com/wjs/v3.0/javascripts/livefyre.js" type="text/javascript"
-  javascript:
-    (function () {
-      var articleId = fyre.conv.load.makeArticleId(null);
-      fyre.conv.load({}, [{
-        el: 'livefyre-comments',
-        network: "livefyre.com",
-        siteId: "351798",
-        articleId: articleId,
-        signed: false,
-        collectionMeta: {
-          articleId: articleId,
-          url: fyre.conv.load.makeCollectionUrl(),
-        }
-      }], function() {});
-    }());
-
-
-
-
-
-

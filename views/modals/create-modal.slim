@@ -22,8 +22,8 @@
               span.required *
             textarea.form-control placeholder="Texte" name="quote[text]" required="required"
           .checkbox
-            label
-              input type="checkbox" name="quote[hidden]" Citation privée
+            label#private-quote-label data-toggle="tooltip" data-placement="right" title="Une citation privée n'apparaît pas pour les autres utilisateurs."
+              input type="checkbox" name="quote[hidden]" Citation privée 
 
         .modal-footer
           button.btn.btn-default type="button" data-dismiss="modal" Annuler

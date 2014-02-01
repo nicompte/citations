@@ -63,7 +63,7 @@ end
 put '/quote/:id' do |id|
   content_type :json
   quote = Quote.find(id)
-  if session[:user] != quote.user
+  if session[:user] != quote.user && session[:user][:role].nil? && session[:user][:role] != 'admin'
     status 401
     return {:edit => "ko"}.to_json
   end

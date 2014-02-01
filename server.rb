@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 %w(
-  sinatra slim json kaminari/sinatra padrino-helpers  
+  sinatra slim json kaminari/sinatra padrino-helpers
   securerandom digest mail
   newrelic_rpm
   mongoid

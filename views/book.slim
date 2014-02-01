@@ -9,23 +9,6 @@ h2.quotes
   = @quotes.length
   | )
 - @quotes.each do |quote|
-  .quote
-    a href="/quote/#{quote._id}"
-      p.text
-        =quote.text[0..600]
-        - if quote.text.length > 601
-          span
-            | ...
-    input.hidden type="hidden" value="#{quote.hidden}"
-    span.author
-      a href="/author/#{quote.author.id}"= quote.author.name
-    - unless quote.book.nil? || quote.book.name.nil? || quote.book.name == ''
-      span.book
-        a href="/book/#{quote.book.id}"= quote.book.name
-    - unless session[:user].nil? || session[:user]._id != quote.user_id
-      a.edit-quote data-id="#{quote._id}" href="/quote/#{quote._id}/edit"
-        i.fa.fa-pencil
-      a.delete-quote data-id="#{quote._id}" href="/quote/#{quote._id}/delete"
-        i.fa.fa-trash-o
+  == slim :'partials/quote', locals: {:quote => quote, :user => session[:user]}
 
 div.pagination-container == paginate @quotes
