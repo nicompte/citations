@@ -1,12 +1,12 @@
 # encoding: utf-8
 
-%w( 
+%w(
   sinatra slim json kaminari/sinatra padrino-helpers  
   securerandom digest mail
   newrelic_rpm
   mongoid
   )
-  .map {|gem| require gem}
+.each {|gem| require gem}
 
 # Configuration
 
@@ -26,12 +26,8 @@ Mongoid.load!("config/mongoid.yml", :production)
 
 Mail.defaults do
   delivery_method :smtp, {
-    :address   => "smtp.sendgrid.net",
-    :port      => 587,
-    :domain    => "barbotte.net",
-    :user_name => ENV['SENDGRID_USERNAME'],
-    :password  => ENV['SENDGRID_PASSWORD'],
-    :authentication => 'plain',
+    :address => "smtp.sendgrid.net", :port => 587, :domain => "barbotte.net",
+    :user_name => ENV['SENDGRID_USERNAME'], :password  => ENV['SENDGRID_PASSWORD'], :authentication => 'plain',
     :enable_starttls_auto => true
   }
 end
@@ -40,4 +36,3 @@ end
 
 Dir["./app/models/*.rb"].each { |file| require file }
 Dir["./app/controllers/*.rb"].each { |file| require file }
-

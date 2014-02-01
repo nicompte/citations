@@ -73,7 +73,7 @@ put '/quote/:id' do |id|
   return {:delete => "ok"}.to_json
 end
 
-get '/' do
+get '/?' do
   @quotes = Quote.or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
   slim :index
 end
