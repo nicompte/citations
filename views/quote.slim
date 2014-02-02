@@ -4,7 +4,7 @@ h1.book
   i.book
     a href="/book/#{@quote.book._id}"= @quote.book.name
 
-== slim :'partials/quote', locals: {:quote => @quote, :user => session[:user], :showUser => true}
+== slim :'partials/quote', locals: {:quote => @quote, :user => session[:user], :showUser => true, :displayAll => true}
 
 #disqus_thread
 

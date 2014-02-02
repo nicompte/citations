@@ -1,10 +1,14 @@
 .quote
-  a href="/quote/#{quote._id}"
+  - if (defined? displayAll) && displayAll == true
     p.text
-      =quote.text[0..600]
-      - if quote.text.length > 601
-        span
-          | ...
+      =quote.text
+  - else
+    a href="/quote/#{quote._id}"
+      p.text
+        =quote.text[0..600]
+        - if quote.text.length > 601
+          span
+            | ...
   input.hidden type="hidden" value="#{quote.hidden}"
   span.author
     a href="/author/#{quote.author.id}"= quote.author.name
