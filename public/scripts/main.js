@@ -1,10 +1,37 @@
 $(function(){
 
   /*
-  * BOOTSTRAP
+  * BOOTSTRAP & jQuery
   */
+
   $('#private-quote-label').tooltip();
 
+  jQuery.extend(jQuery.validator.messages, {
+    required: "Veuillez renseigner ce champ.",
+    email: "Veuillez saisir une adresse email valide."
+  });
+
+  jQuery.validator.setDefaults({
+    highlight: function(element) {
+      $(element).closest('.form-group').addClass('has-error');
+    },
+    unhighlight: function(element) {
+      $(element).closest('.form-group').removeClass('has-error');
+    },
+    errorElement: 'span',
+    errorClass: 'help-block',
+    errorPlacement: function(error, element) {
+      if(element.parent('.input-group').length) {
+        error.insertAfter(element.parent());
+      } else {
+        error.insertAfter(element);
+      }
+    }
+  });
+
+  $("#register").validate();
+  $("#login").validate();
+  $("#add").validate();
 
   /*
   * PAGINATION
@@ -47,40 +74,40 @@ $(function(){
   });
 
   $('#author').selectize({
-      valueField: '_id', labelField: 'name',
-      searchField: 'name', create: true, maxItems: 1,
-      render: {
-        option_create: function(data, escape) {
-          return '<div class="create">Ajouter <strong>' + escape(data.input) + '</strong>&hellip;</div>';
-        }
-      },
-      load: function(query, callback) {
-        if (!query.length) return callback();
-        $.ajax({
-          url: '/author/find/' + encodeURIComponent(query), type: 'GET',
-          error: function() { callback(); },
-          success: function(res) { callback(res.slice(0, 10)); }
-        });
+    valueField: '_id', labelField: 'name',
+    searchField: 'name', create: true, maxItems: 1,
+    render: {
+      option_create: function(data, escape) {
+        return '<div class="create">Ajouter <strong>' + escape(data.input) + '</strong>&hellip;</div>';
       }
-    });
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/author/find/' + encodeURIComponent(query), type: 'GET',
+        error: function() { callback(); },
+        success: function(res) { callback(res.slice(0, 10)); }
+      });
+    }
+  });
 
-    $('#book').selectize({
-      valueField: '_id', labelField: 'name',
-      searchField: 'name', create: true, maxItems: 1,
-      render: {
-        option_create: function(data, escape) {
-          return '<div class="create">Ajouter <strong>' + escape(data.input) + '</strong>&hellip;</div>';
-        }
-      },
-      load: function(query, callback) {
-        if (!query.length) return callback();
-        $.ajax({
-          url: '/book/find/author/' + $('#author').val() + '/book/' + encodeURIComponent(query), type: 'GET',
-          error: function() { callback(); },
-          success: function(res) { callback(res.slice(0, 10)); }
-        });
+  $('#book').selectize({
+    valueField: '_id', labelField: 'name',
+    searchField: 'name', create: true, maxItems: 1,
+    render: {
+      option_create: function(data, escape) {
+        return '<div class="create">Ajouter <strong>' + escape(data.input) + '</strong>&hellip;</div>';
       }
-    });
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: '/book/find/author/' + $('#author').val() + '/book/' + encodeURIComponent(query), type: 'GET',
+        error: function() { callback(); },
+        success: function(res) { callback(res.slice(0, 10)); }
+      });
+    }
+  });
 
 
   /*
@@ -120,15 +147,17 @@ $(function(){
   });
 
   $('#login').on('submit', function(){
-    $.ajax({
-      url: '/login',
-      method: 'post',
-      data: $(this).serialize()
-    }).done(function(){
-      window.location.reload();
-    }).fail(function(){
-      alert('Erreur lors de la connexion.');
-    });
+    if($(this).valid()){
+      $.ajax({
+        url: '/login',
+        method: 'post',
+        data: $(this).serialize()
+      }).done(function(){
+        window.location.reload();
+      }).fail(function(){
+        alert('Erreur lors de la connexion.');
+      });
+    }
     return false;
   });
 

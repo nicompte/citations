@@ -25,6 +25,7 @@ post '/register' do
   alreadyExisting = User.or( {name: params[:user]["name"]}, {email: params[:user]["email"]} )
   redirect '/' unless alreadyExisting.nil? or !alreadyExisting.exists?
 
+  params[:user].except! "password-again"
   params[:user]["validated"] = false
   params[:user]["token"] = SecureRandom.hex(15)
   params[:user]["password"] = Digest::MD5.hexdigest params[:user]["password"]

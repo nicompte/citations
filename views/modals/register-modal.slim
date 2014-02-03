@@ -9,21 +9,41 @@
         .modal-body
           h4 Veuillez renseigner vos identifiants
           .form-group
-            label
+            label for="register-name"
               | Identifiant de connexion
               span.required *
-            input.form-control type="text" placeholder="Nom" name="user[name]"
+            input#register-name.form-control(
+              type="text" placeholder="Nom" name="user[name]"
+              required
+              pattern="^[\w\d_-]*$" data-validation-pattern-message="Votre identifiant ne peux pas contenir de carctère spéciaux."
+              minlength="3" data-msg-minlength="Votre identifiant de connexion doit contenir au moins 3 caractères."
+            )
           .form-group
-            label
+            label for="register-email"
               | Email
               span.required *
-            input.form-control type="email" placeholder="Email" name="user[email]"
+            input#resiter-email.form-control(
+              type="email" placeholder="Email" name="user[email]"
+              required
+            )
           .form-group
-            label
+            label for="register-password"
               | Mot de passe
               span.required *
-            input.form-control type="password" placeholder="Mot de passe" name="user[password]"
-
+            input#register-password.form-control(
+              type="password" placeholder="Mot de passe" name="user[password]"
+              required
+              minlength="6" data-msg-minlength="Votre mot de passe doit contenir au moins 6 caractères."
+            )
+          .form-group
+            label for="register-password-again"
+              | Répetez votre mot de passe
+              span.required *
+            input#register-password-again.form-control(
+              type="password" placeholder="Répetez votre mot de passe" name="user[password-again]"
+              required
+              equalTo="user[password]" data-msg-equalto="Veuillez saisir deux mots de passe identiques."
+            )
         .modal-footer
           button.btn.btn-default type="button" data-dismiss="modal" Annuler
           button.btn.btn-default type="submit" Valider

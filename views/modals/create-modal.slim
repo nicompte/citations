@@ -9,21 +9,21 @@
         .modal-body
           h4 Nouvelle citation
           .form-group
-            label
+            label for="author"
               | Auteur
               span.required *
             input#author.form-control type="text" placeholder="Auteur" name="quote[author]" required="required"
           .form-group
-            label Livre
+            label for="book" Livre
             input#book.form-control type="text" placeholder="Livre" name="quote[book]"
           .form-group
-            label
+            label for="text"
               | Citation
               span.required *
-            textarea.form-control placeholder="Texte" name="quote[text]" required="required"
+            textarea#add-text.form-control placeholder="Texte" name="quote[text]" required="required"
           .checkbox
             label#private-quote-label data-toggle="tooltip" data-placement="right" title="Une citation privée n'apparaît pas pour les autres utilisateurs."
-              input type="checkbox" name="quote[hidden]" Citation privée 
+              input type="checkbox" name="quote[hidden]" Citation privée
 
         .modal-footer
           button.btn.btn-default type="button" data-dismiss="modal" Annuler
