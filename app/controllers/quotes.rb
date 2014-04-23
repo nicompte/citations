@@ -5,6 +5,12 @@ get '/quote' do
   slim :new_quote
 end
 
+get '/quote/daily' do
+  @quote = Quote.first
+  content_type :json
+  {:text => @quote.text, :author => @quote.author.name, :book=>@quote.book.name}.to_json
+end
+
 get '/quote/:id' do |id|
   @quote = Quote.find(id)
   redirect '/' if @quote.hidden && session[:user] != @quote.user
