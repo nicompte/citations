@@ -25,7 +25,7 @@ get '/quote/daily' do
     store.set("daily_book", @quote.book.name)
     store.set("daily_date", Time.new.strftime("%Y, %m, %d"))
   else
-    randomQuote = {:text => store.get("daily_text"), :author => store.get("daily.author"), :book => store.get("daily_book")}
+    randomQuote = {:text => store.get("daily_text"), :author => store.get("daily_author"), :book => store.get("daily_book")}
   end
 
   content_type :json
