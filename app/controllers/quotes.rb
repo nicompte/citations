@@ -9,6 +9,7 @@ get '/quote' do
 end
 
 get '/quote/daily' do
+  # TODO : Random
   today = Time.new
   lastQuote = Date.strptime(store.get("daily_date"), "%Y, %m, %d")
   if lastQuote.nil? || today.year > lastQuote.year || today.month > lastQuote.month || today.day > lastQuote.day then
@@ -38,6 +39,7 @@ get '/quote/daily/reset' do
 end
 
 get '/quote/random' do
+  # TODO : Random
   #count = Quote.or( {hidden: false}, {hidden: true, user: session[:user]} ).count
   quotes = Quote.all
   loop do
