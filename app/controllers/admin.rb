@@ -1,9 +1,7 @@
 # encoding: utf-8
 
 get '/admin/*' do
-  if session[:user].nil? || session[:user][:role] != "admin"
-    redirect '/'
-  end
+  redirect '/' if session[:user].nil? || session[:user][:role] != "admin"
   pass
 end
 

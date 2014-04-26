@@ -26,6 +26,8 @@ html
 
       #bs-example-navbar-collapse-1.collapse.navbar-collapse.navbar-right
         ul.nav.navbar-nav
+          li
+            a href="/quote/random" Aléatoire
           - unless session[:user].nil?
             li
               a#add-quote href="/quote" Ajouter

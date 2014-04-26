@@ -5,6 +5,7 @@
   securerandom digest mail
   newrelic_rpm
   mongoid
+  redis
   )
 .each {|gem| require gem}
 

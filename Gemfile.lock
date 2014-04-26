@@ -102,6 +102,7 @@ GEM
     rake (10.1.1)
     rdoc (3.12.2)
       json (~> 1.4)
+    redis (3.0.7)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -135,5 +136,6 @@ DEPENDENCIES
   mongoid (~> 3.1.6)
   newrelic_rpm
   padrino-helpers
+  redis (~> 3.0.7)
   sinatra (~> 1.4.3)
   slim (~> 2.0.1)
