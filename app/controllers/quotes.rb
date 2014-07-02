@@ -69,6 +69,8 @@ get '/quote/daily/reset' do
 end
 
 get '/quote/random' do
+  @randomQuote = getRandomQuote
+  @dailyQuote = getDailyQuote("plain")
   @quote = getRandomQuote
   slim :quote, :locals=>{:title => "Citations - #{@quote.author.name}, #{@quote.book.name}"}
 end
