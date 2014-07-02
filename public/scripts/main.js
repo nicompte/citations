@@ -138,6 +138,35 @@ $(function(){
   });
 
   /*
+  * STAR
+  */
+  $('.star-quote').on('click', function(){
+    var self = $(this);
+    $.ajax({
+      url: $(this).attr('href'),
+      method: 'PUT'
+    }).done(function(){
+      self.removeClass('star-quote').addClass('unstar-quote')
+      .attr('href', self.attr('href').replace('star', 'unstar'));
+    });
+    event.preventDefault();
+    return false;
+  });
+
+  $('.unstar-quote').on('click', function(){
+    var self = $(this);
+    $.ajax({
+      url: $(this).attr('href'),
+      method: 'PUT'
+    }).done(function(){
+      self.removeClass('unstar-quote').addClass('star-quote')
+      .attr('href', self.attr('href').replace('unstar', 'star'));
+    });
+    event.preventDefault();
+    return false;
+  });
+
+  /*
   * LOGIN
   */
 

@@ -15,6 +15,13 @@
   - unless quote.book.nil? || quote.book.name.nil? || quote.book.name == ''
     span.book
       a href="/book/#{quote.book.id}"= quote.book.name
+  - unless session[:user].nil?
+    - if !session[:user].starred.nil? and session[:user].starred.include? "" + quote._id
+      a.unstar-quote href="/quote/#{quote._id}/unstar"
+        i.fa.fa-star-o
+    - else
+      a.star-quote href="/quote/#{quote._id}/star"
+        i.fa.fa-star-o
   - unless session[:user].nil? || !quote.hidden
     i.hidden-quote.fa.fa-eye-slash
   - unless session[:user].nil? || session[:user]._id != quote.user_id
@@ -27,3 +34,6 @@
     div.user
       |  Soumis par
       a< href="/user/#{quote.user._id}"= quote.user.name
+    div.starred
+      | #{quote.starred}
+      i.fa.fa-star

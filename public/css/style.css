@@ -69,12 +69,16 @@ body{font-family:'Source Sans Pro';}
 .navbar .navbar-brand{font-family:lato;font-weight:100;font-size:2.3em;}
 .navbar a,.navbar button{text-decoration:none;color:#6C6C6C;}
 .navbar .search-block{margin-top:7px;display:table;width:250px;max-width:250px;}
+.right-block{width:50%;margin-left:2%;margin-bottom:1%;background-color:#f2f2f2;padding-left:15px;padding-right:10px;border-left:solid 2px #e6e6e6;border-bottom:solid 1px #e6e6e6;word-wrap:break-word;}
 .quote{margin:35px 0px;}.quote .text{margin-bottom:3px;font-size:1.2em;white-space:pre-line;color:#222;font-weight:300;}
 .quote .author{margin-right:5px;font-weight:400;font-size:0.9em;}.quote .author a{text-decoration:none;color:#999;}
 .quote .book{font-style:italic;font-size:0.9em;}.quote .book:before{content:"- ";}
 .quote i{font-size:0.8em;margin-left:5px;display:none;}.quote i.hidden-quote{color:#BBB;display:inline;}
+.quote a.star-quote i{display:inline;}.quote a.star-quote i:hover:before{content:"\f005";color:orange;}
+.quote a.unstar-quote i{display:inline;}.quote a.unstar-quote i:before{content:"\f005";color:orange;}
 .quote:hover i{display:inline;}
 .quote .user{margin-top:5px;font-size:0.9em;color:#aaa;}.quote .user a{color:#999;}
+.quote .starred{margin-top:5px;font-size:0.9em;color:#aaa;}.quote .starred i{display:inline;color:orange;}
 .book-list{margin-top:30px;}
 .author-block i,.book-block i{font-size:0.8em;margin-left:5px;display:none;}
 .author-block:hover i,.book-block:hover i{display:inline;}

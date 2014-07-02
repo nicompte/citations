@@ -8,27 +8,58 @@ get '/quote' do
   slim :new_quote
 end
 
-get '/quote/daily' do
+def getDailyQuote(type)
+
+  uri = URI.parse(ENV["REDISTOGO_URL"])
+  store = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+
   # TODO : Random
   lastQuote = Date.strptime(store.get("daily_date"), "%Y, %m, %d")
   if lastQuote.past? then
     quotes = Quote.all
     loop do
-      @quote = quotes.sample
-      sameAuthor = @quote.author.name == store.get("daily_author")
-      break if !sameAuthor && (@quote.hidden == false && @quote.text.length <= 400)
+      quote = quotes.sample
+      sameAuthor = quote.author.name == store.get("daily_author")
+      break if !sameAuthor && (quote.hidden == false && quote.text.length <= 400)
     end
-    randomQuote = {:text => @quote.text, :author => @quote.author.name, :book=>@quote.book.name}
-    store.set("daily_text", @quote.text)
-    store.set("daily_author", @quote.author.name)
-    store.set("daily_book", @quote.book.name)
+    store.set("daily_id", quote._id)
+    store.set("daily_text", quote.text)
+    store.set("daily_author", quote.author.name)
+    store.set("daily_book", quote.book.name)
     store.set("daily_date", Time.new.strftime("%Y, %m, %d"))
-  else
-    randomQuote = {:text => store.get("daily_text"), :author => store.get("daily_author"), :book => store.get("daily_book")}
   end
 
+  if type == "json" then
+    return {:text => store.get("daily_text"), :author => store.get("daily_author"), :book => store.get("daily_book"), :_id => store.get("daily_id")}
+  else
+    return Quote.find(store.get("daily_id"))
+  end
+
+  return dailyQuote
+
+end
+
+
+def getRandomQuote
+
+  # TODO : Random
+  quotes = Quote.all
+  randomQuote = quotes.sample
+  loop do
+    randomQuote = quotes.sample
+    break if randomQuote.hidden == false && randomQuote.text.length <= 400
+  end
+
+  return randomQuote
+
+end
+
+get '/quote/daily' do
+
+  dailyQuote = getDailyQuote('json')
+
   content_type :json
-  randomQuote.to_json
+  dailyQuote.to_json
 end
 
 get '/quote/daily/reset' do
@@ -38,14 +69,15 @@ get '/quote/daily/reset' do
 end
 
 get '/quote/random' do
-  # TODO : Random
-  #count = Quote.or( {hidden: false}, {hidden: true, user: session[:user]} ).count
-  quotes = Quote.all
-  loop do
-    @quote = quotes.sample
-    break if @quote.hidden == false && @quote.text.length <= 400
-  end
+  @quote = getRandomQuote
   slim :quote, :locals=>{:title => "Citations - #{@quote.author.name}, #{@quote.book.name}"}
+end
+
+get '/quote/best' do
+  @quotes = Quote.gt(starred: 0).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:starred).page(params[:page])
+  @randomQuote = getRandomQuote
+  @dailyQuote = getDailyQuote("plain")
+  slim :index, :locals=>{:title => "Citations - Meilleures citations", :h1 => "Meilleures citations"}
 end
 
 get '/quote/:id' do |id|
@@ -76,6 +108,27 @@ post '/quote' do
   author.quotes.push(quote)
 
   redirect "/"
+end
+
+put '/quote/:id/star' do |id|
+  if session[:user].starred.nil? then
+    User.find(session[:user]._id).push(:starred, id)
+    session[:user].starred = [id]
+  else
+    unless session[:user].starred.include?(id) then
+      User.find(session[:user]._id).push(:starred, id)
+      session[:user].starred.push(id)
+    end
+  end
+  Quote.find(id).inc(:starred, 1)
+  200
+end
+
+put '/quote/:id/unstar' do |id|
+  session[:user].starred.delete_at(session[:user].starred.index(id))
+  User.find(session[:user]._id).pull(:starred, id)
+  Quote.find(id).inc(:starred, -1)
+  200
 end
 
 delete '/quote/:id' do |id|
@@ -113,5 +166,7 @@ end
 
 get '/?' do
   @quotes = Quote.or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
+  @randomQuote = getRandomQuote
+  @dailyQuote = getDailyQuote("plain")
   slim :index
 end

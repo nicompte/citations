@@ -27,6 +27,8 @@ html
       #bs-example-navbar-collapse-1.collapse.navbar-collapse.navbar-right
         ul.nav.navbar-nav
           li
+            a href="/quote/best" Meilleures
+          li
             a href="/quote/random" Aléatoire
           - unless session[:user].nil?
             li
@@ -51,6 +53,8 @@ html
                 | Mon compte
                 span.caret
               ul.dropdown-menu role="menu" aria-labellby="dLabel"
+                li
+                  a href="/me/starred" Mes favorites
                 li
                   a href="/me/quotes" Mes citations
                 li

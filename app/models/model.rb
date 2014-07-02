@@ -21,6 +21,7 @@ class Quote
   include Mongoid::Document
   field :text, type: String
   field :hidden, type: Boolean
+  field :starred, type: Integer
   belongs_to :book
   belongs_to :author
   belongs_to :user
@@ -33,5 +34,6 @@ class User
   field :email, type: String
   field :validated, type: Boolean
   field :token, type: String
+  field :starred, type: Array
   has_many :quotes
 end

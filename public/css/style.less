@@ -46,6 +46,17 @@ h2{
     max-width: 250px;
   }
 }
+.right-block{
+  width: 50%;
+  margin-left: 2%;
+  margin-bottom: 1%;
+  background-color: darken(white, 5%);
+  padding-left: 15px;
+  padding-right: 10px;
+  border-left: solid 2px darken(white, 10%);
+  border-bottom: solid 1px darken(white, 10%);
+  word-wrap: break-word;
+}
 .quote{
   margin: 35px 0px;
   .text{
@@ -80,6 +91,20 @@ h2{
       display: inline;
     }
   }
+  a.star-quote i{
+    display: inline;
+    &:hover:before{
+     content: "\f005";
+     color: orange;
+    }
+  }
+  a.unstar-quote i{
+    display: inline;
+    &:before{
+      content: "\f005";
+      color: orange;
+    }
+  }
   &:hover i{
     display: inline;
   }
@@ -89,6 +114,15 @@ h2{
     color: #aaa;
     a{
       color: #999;
+    }
+  }
+  .starred{
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #aaa;
+    i{
+      display: inline;
+      color: orange;
     }
   }
 }
