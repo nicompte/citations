@@ -4,7 +4,8 @@ $(function(){
   * BOOTSTRAP & jQuery
   */
 
-  $('#private-quote-label').tooltip();
+  $('#private-quote-label, #edit-private-quote-label').tooltip();
+  $('.edit-quote, .delete-quote, .star-quote, .unstar-quote').tooltip();
 
   jQuery.extend(jQuery.validator.messages, {
     required: "Veuillez renseigner ce champ.",
@@ -147,7 +148,8 @@ $(function(){
       method: 'PUT'
     }).done(function(){
       self.removeClass('star-quote').addClass('unstar-quote')
-      .attr('href', self.attr('href').replace('star', 'unstar'));
+      .attr('href', self.attr('href').replace('star', 'unstar'))
+      .attr('title', 'Retirer des favoris');
     });
     event.preventDefault();
     return false;
@@ -160,7 +162,8 @@ $(function(){
       method: 'PUT'
     }).done(function(){
       self.removeClass('unstar-quote').addClass('star-quote')
-      .attr('href', self.attr('href').replace('unstar', 'star'));
+      .attr('href', self.attr('href').replace('unstar', 'star'))
+      .attr('title', 'Ajouter aux favoris');
     });
     event.preventDefault();
     return false;

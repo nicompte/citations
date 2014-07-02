@@ -17,23 +17,25 @@
       a href="/book/#{quote.book.id}"= quote.book.name
   - unless session[:user].nil?
     - if !session[:user].starred.nil? and session[:user].starred.include? "" + quote._id
-      a.unstar-quote href="/quote/#{quote._id}/unstar"
+      a.unstar-quote href="/quote/#{quote._id}/unstar" title="Retirer des favoris"
         i.fa.fa-star-o
     - else
-      a.star-quote href="/quote/#{quote._id}/star"
+      a.star-quote href="/quote/#{quote._id}/star" title="Ajouter aux favoris"
         i.fa.fa-star-o
   - unless session[:user].nil? || !quote.hidden
     i.hidden-quote.fa.fa-eye-slash
   - unless session[:user].nil? || session[:user]._id != quote.user_id
-    a.edit-quote data-id="#{quote._id}" href="/quote/#{quote._id}/edit"
+    a.edit-quote data-id="#{quote._id}" href="/quote/#{quote._id}/edit" title="Éditer"
       i.fa.fa-pencil
-    a.delete-quote data-id="#{quote._id}" href="/quote/#{quote._id}/delete"
+    a.delete-quote data-id="#{quote._id}" href="/quote/#{quote._id}/delete" title="Supprimer"
       i.fa.fa-trash-o
 
   - if (defined? showUser) && showUser == true
-    div.user
-      |  Soumis par
-      a< href="/user/#{quote.user._id}"= quote.user.name
-    div.starred
-      | #{quote.starred}
-      i.fa.fa-star
+    .extra
+      span.user
+        |  Soumis par
+        a< href="/user/#{quote.user._id}"= quote.user.name
+      - if (defined? quote.starred) && !quote.starred.nil? && quote.starred > 0
+        span.starred
+          | -  #{quote.starred}
+          i.fa.fa-star

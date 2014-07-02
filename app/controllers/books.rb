@@ -11,6 +11,8 @@ get '/books' do
 end
 
 get '/book/:id' do |id|
+  @randomQuote = getRandomQuote
+  @dailyQuote = getDailyQuote("plain")
   @book = Book.find(id)
   @quotes = Quote.where(book: id).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
   slim :book, :locals=>{:title => "Citations - #{@book.author.name}, #{@book.name}"}

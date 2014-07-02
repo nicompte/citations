@@ -1,3 +1,10 @@
+.pull-right.right-block
+  h1.home Citation aléatoire
+  == slim :'partials/quote', locals: {:quote => @randomQuote, :user => session[:user]}
+
+  h1.home Citation du jour
+  == slim :'partials/quote', locals: {:quote => @dailyQuote, :user => session[:user]}
+
 h1.author
  a href="/author/#{@author._id}"= @author.name
 

@@ -81,6 +81,8 @@ get '/quote/best' do
 end
 
 get '/quote/:id' do |id|
+  @randomQuote = getRandomQuote
+  @dailyQuote = getDailyQuote("plain")
   @quote = Quote.find(id)
   redirect '/' if @quote.hidden && session[:user] != @quote.user
   slim :quote, :locals=>{:title => "Citations - #{@quote.author.name}, #{@quote.book.name}"}

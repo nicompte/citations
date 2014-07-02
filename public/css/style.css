@@ -77,8 +77,8 @@ body{font-family:'Source Sans Pro';}
 .quote a.star-quote i{display:inline;}.quote a.star-quote i:hover:before{content:"\f005";color:orange;}
 .quote a.unstar-quote i{display:inline;}.quote a.unstar-quote i:before{content:"\f005";color:orange;}
 .quote:hover i{display:inline;}
-.quote .user{margin-top:5px;font-size:0.9em;color:#aaa;}.quote .user a{color:#999;}
-.quote .starred{margin-top:5px;font-size:0.9em;color:#aaa;}.quote .starred i{display:inline;color:orange;}
+.quote .extra{margin-top:3px;}.quote .extra .user{font-size:0.9em;color:#aaa;}.quote .extra .user a{color:#999;}
+.quote .extra .starred{margin-left:7px;margin-top:5px;font-size:0.9em;color:#aaa;}.quote .extra .starred i{display:inline;color:#bbb;}
 .book-list{margin-top:30px;}
 .author-block i,.book-block i{font-size:0.8em;margin-left:5px;display:none;}
 .author-block:hover i,.book-block:hover i{display:inline;}
