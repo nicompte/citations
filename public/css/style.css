@@ -72,7 +72,7 @@ body{font-family:'Source Sans Pro';}
 .quote{margin:35px 0px;}.quote .text{margin-bottom:3px;font-size:1.2em;white-space:pre-line;color:#222;font-weight:300;}
 .quote .author{margin-right:5px;font-weight:400;font-size:0.9em;}.quote .author a{text-decoration:none;color:#999;}
 .quote .book{font-style:italic;font-size:0.9em;}.quote .book:before{content:"- ";}
-.quote i{font-size:0.8em;margin-left:5px;display:none;}.quote i .hidden{color:#BBB;}
+.quote i{font-size:0.8em;margin-left:5px;display:none;}.quote i.hidden-quote{color:#BBB;display:inline;}
 .quote:hover i{display:inline;}
 .quote .user{margin-top:5px;font-size:0.9em;color:#aaa;}.quote .user a{color:#999;}
 .book-list{margin-top:30px;}
