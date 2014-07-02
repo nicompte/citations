@@ -10,9 +10,8 @@ end
 
 get '/quote/daily' do
   # TODO : Random
-  today = Time.new
   lastQuote = Date.strptime(store.get("daily_date"), "%Y, %m, %d")
-  if lastQuote.nil? || today.year > lastQuote.year || today.month > lastQuote.month || today.day > lastQuote.day then
+  if lastQuote.past? then
     quotes = Quote.all
     loop do
       @quote = quotes.sample
