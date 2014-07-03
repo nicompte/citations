@@ -17,6 +17,7 @@ def getDailyQuote(type)
   lastQuote = Date.strptime(store.get("daily_date"), "%Y, %m, %d")
   if lastQuote.past? then
     quotes = Quote.all
+    quote = nil
     loop do
       quote = quotes.sample
       sameAuthor = quote.author.name == store.get("daily_author")
@@ -44,7 +45,7 @@ def getRandomQuote
 
   # TODO : Random
   quotes = Quote.all
-  randomQuote = quotes.sample
+  randomQuote = nil
   loop do
     randomQuote = quotes.sample
     break if randomQuote.hidden == false && randomQuote.text.length <= 400
