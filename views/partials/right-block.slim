@@ -6,3 +6,29 @@
   .daily-quote
     h1.home Citation du jour
     == slim :'partials/quote', locals: {:quote => @dailyQuote, :user => session[:user]}
+
+  /
+    - unless session[:user].nil?
+      .create-quote
+        h1.home Nouvelle citation
+        form.form-horizontal#add2 action="/quote" method="post"
+          .modal-body
+            .form-group
+              label for="author"
+                | Auteur
+                span.required *
+              input#author.form-control type="text" placeholder="Auteur" name="quote[author]" required="required"
+            .form-group
+              label for="book" Livre
+              input#book.form-control type="text" placeholder="Livre" name="quote[book]"
+            .form-group
+              label for="text"
+                | Citation
+                span.required *
+              textarea#add-text.form-control placeholder="Texte" name="quote[text]" required="required"
+            .checkbox
+              label#private-quote-label data-toggle="tooltip" data-placement="right" title="Une citation privée n'apparaît pas pour les autres utilisateurs."
+                input type="checkbox" name="quote[hidden]" Citation privée
+
+          .modal-footer
+            button.btn.btn-default type="submit" Valider
