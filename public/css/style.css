@@ -94,7 +94,7 @@ h2.letter{font-size:1.3em;font-family:Lato;font-weight:300;color:#b10101;margin-
 a{outline:none;text-decoration:none;color:#888;}a:hover,a:hover p{outline:none;color:#b10101!important;text-decoration:none;}
 a:active,a:active p{outline:none;}
 h1 a,h2 a{color:#333;}
-@media (max-width:767px){.search-block{width:200px!important;margin-bottom:15px;margin-top:0px;} .quote i{visibility:inline;}}#disqus_thread{margin-top:50px;}
+@media (max-width:767px){.search-block{width:200px!important;margin-bottom:15px;margin-top:0px;} .quote i{visibility:inline;} .right-block{width:100%;margin-bottom:8%;background-color:transparent;border:none;box-shadow:none;padding:0;}.right-block .random-quote{display:none;}}#disqus_thread{margin-top:50px;}
 .pagination-container{text-align:center;}
 .pagination{text-align:center;display:inline-block;padding-left:0;margin:20px 0;border-radius:4px;}.pagination>span{display:inline;}.pagination>span.current,.pagination>span.gap,.pagination>span>a,.pagination>span>span{position:relative;float:left;padding:6px 12px;line-height:1.428571429;text-decoration:none;border:1px solid #dddddd;margin-left:-1px;}
 .pagination>span:first-child.current,.pagination>span:first-child>a,.pagination>span:first-child>span{margin-left:0;border-bottom-left-radius:4px;border-top-left-radius:4px;}

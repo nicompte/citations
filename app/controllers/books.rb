@@ -6,6 +6,8 @@ get '/book/find/author/:author/book/:book' do |author, book|
 end
 
 get '/books' do
+  @randomQuote = getRandomQuote
+  @dailyQuote = getDailyQuote("plain")
   @books = Book.all.asc(:name)
   slim :books, :locals=>{:title => "Citations - Livres"}
 end

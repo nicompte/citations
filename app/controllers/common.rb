@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 get '/search' do
+  @randomQuote = getRandomQuote
+  @dailyQuote = getDailyQuote("plain")
   q = params[:q]
   @authors = Author.where(name: Regexp.new(q, true)).asc(:name)
   @books = Book.where(name: Regexp.new(q, true)).asc(:name)

@@ -1,0 +1,8 @@
+.pull-right.right-block
+  .random-quote
+    h1.home Citation aléatoire
+    == slim :'partials/quote', locals: {:quote => @randomQuote, :user => session[:user]}
+
+  .daily-quote
+    h1.home Citation du jour
+    == slim :'partials/quote', locals: {:quote => @dailyQuote, :user => session[:user]}

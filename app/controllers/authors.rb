@@ -6,6 +6,8 @@ get '/author/find/:name' do |name|
 end
 
 get '/authors' do
+  @randomQuote = getRandomQuote
+  @dailyQuote = getDailyQuote("plain")
   @authors = Author.all.asc(:name)
   slim :authors, :locals=>{:title => "Citations - Auteurs"}
 end
