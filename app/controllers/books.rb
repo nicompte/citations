@@ -8,7 +8,11 @@ end
 get '/books' do
   @randomQuote = getRandomQuote
   @dailyQuote = getDailyQuote("plain")
-  @books = Book.all.asc(:name)
+  books = Book.all.asc(:name)
+  @books = Hash.new
+  ('A'..'Z').each do |letter|
+    @books[letter] = books.select{|book| book.name.starts_with?(letter) && book.name != 'Hors livre'}
+  end
   slim :books, :locals=>{:title => "Citations - Livres"}
 end
 

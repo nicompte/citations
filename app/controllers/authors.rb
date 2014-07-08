@@ -8,7 +8,11 @@ end
 get '/authors' do
   @randomQuote = getRandomQuote
   @dailyQuote = getDailyQuote("plain")
-  @authors = Author.all.asc(:name)
+  authors = Author.all.asc(:name)
+  @authors = Hash.new
+  ('A'..'Z').each do |letter|
+    @authors[letter] = authors.select{|author| author.name.starts_with?(letter)}
+  end
   slim :authors, :locals=>{:title => "Citations - Auteurs"}
 end
 

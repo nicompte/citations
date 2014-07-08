@@ -1,25 +1,24 @@
 == slim :'partials/right-block'
 
 h1= locals[:h1] || 'Auteurs'
-- previous_letter = ""
-- @authors.each do |author|
-  - count = Quote.where(author: author._id).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
-  - if count > 0
-    div.author-block
-      - letter = author.name[0].capitalize
-      - if previous_letter != letter
-        - previous_letter = letter
-        h2.letter= letter
-      a.author href="/author/#{author._id}"
-        = author.name
-        | &nbsp;(
-        => count
-        - if count <= 1
-          | citation)
-        - else
-          | citations)
-      - unless session[:user].nil? || session[:user][:role].nil? || session[:user][:role] != 'admin'
-        a.edit-author data-id="#{author._id}" data-value="#{author.name}" href="/author/#{author._id}/edit"
-          i.fa.fa-pencil
+- @authors.each do |letter, authorGroup|
+  - if authorGroup.length > 0
+    div.item-block
+      h2.letter= letter.capitalize
+      - authorGroup.each do |author|
+        - count = Quote.where(author: author._id).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
+        - if count > 0
+            .item
+              a href="/author/#{author._id}"
+                = author.name
+                | &nbsp;(
+                => count
+                - if count <= 1
+                  | citation)
+                - else
+                  | citations)
+              - unless session[:user].nil? || session[:user][:role].nil? || session[:user][:role] != 'admin'
+                a.edit-author data-id="#{author._id}" data-value="#{author.name}" href="/author/#{author._id}/edit"
+                  i.fa.fa-pencil
 
 ==Slim::Template.new('views/modals/edit-author-modal.slim').render

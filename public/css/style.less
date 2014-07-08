@@ -148,14 +148,22 @@ h2{
 .book-list{
   margin-top: 30px;
 }
-.author-block, .book-block{
-  width: auto;
-  i{
+.item-block{
+  width: 200px;
+  vertical-align: top;
+  display: inline-block;
+  .item{
+    display: block;
+    vertical-align: top;
+    margin-right: 10px;
+    margin-bottom: 2px;
+  }
+  .item i{
     font-size: 0.8em;
     margin-left: 5px;
     display: none;
   }
-  &:hover i{
+  .item:hover i{
     display: inline;
   }
 }

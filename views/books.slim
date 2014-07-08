@@ -1,25 +1,25 @@
 == slim :'partials/right-block'
 
 h1= locals[:h1] || 'Livres'
-- previous_letter = ""
-- @books.each do |book|
-  - count = Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
-  - if count > 0
-    div.book-block
-      - letter = book.name[0].capitalize
-      - if previous_letter != letter
-        - previous_letter = letter
-        h2.letter= letter
-      a.book href="/book/#{book._id}"
-        = book.name
-        | &nbsp;(
-        => count
-        - if count == 1
-          | citation)
-        - else
-          | citations)
-      - unless session[:user].nil? || session[:user][:role].nil? || session[:user][:role] != 'admin'
-        a.edit-book data-id="#{book._id}" data-value="#{book.name}" href="/book/#{book._id}/edit"
-          i.fa.fa-pencil
+
+- @books.each do |letter, bookGroup|
+  - if bookGroup.length > 0
+    div.item-block
+      h2.letter= letter.capitalize
+      - bookGroup.each do |book|
+        - count = Quote.where(book: book).or( {hidden: false}, {hidden: true, user: session[:user]} ).count
+        - if count > 0
+            .item
+              a href="/book/#{book._id}"
+                = book.name
+                | &nbsp;(
+                => count
+                - if count <= 1
+                  | citation)
+                - else
+                  | citations)
+              - unless session[:user].nil? || session[:user][:role].nil? || session[:user][:role] != 'admin'
+                a.edit-book data-id="#{book._id}" data-value="#{book.name}" href="/book/#{book._id}/edit"
+                  i.fa.fa-pencil
 
 ==Slim::Template.new('views/modals/edit-book-modal.slim').render
