@@ -24,7 +24,7 @@
         i.fa.fa-star-o
   - unless session[:user].nil? || !quote.hidden
     i.hidden-quote.fa.fa-eye-slash
-  - unless session[:user].nil? || session[:user]._id != quote.user_id
+  - if !session[:user].nil? && ( session[:user]._id == quote.user_id || ( !session[:user][:role].nil? && session[:user][:role] == 'admin' ))
     a.edit-quote data-id="#{quote._id}" href="/quote/#{quote._id}/edit" title="Éditer"
       i.fa.fa-pencil
     a.delete-quote data-id="#{quote._id}" href="/quote/#{quote._id}/delete" title="Supprimer"
