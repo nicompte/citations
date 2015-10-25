@@ -8,11 +8,11 @@ get '/search' do
   @books = Book.where(name: Regexp.new(q, true)).asc(:name)
   @quotes = Quote.where(text: Regexp.new(q, true)).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
   @query = q
-  slim :search
+  slim :search, :layout => 'layout'
 end
 
 get '/about' do
-  slim :about
+  slim :about, :layout => 'layout'
 end
 
 get '/ping' do

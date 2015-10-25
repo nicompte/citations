@@ -5,7 +5,7 @@ store = Redis.new(:host => uri.host, :port => uri.port, :password => uri.passwor
 
 get '/quote' do
   redirect '/' if session[:user].nil?
-  slim :new_quote
+  slim :new_quote, :layout => 'layout'
 end
 
 def getDailyQuote(type)
@@ -73,14 +73,14 @@ get '/quote/random' do
   @randomQuote = getRandomQuote
   @dailyQuote = getDailyQuote("plain")
   @quote = getRandomQuote
-  slim :quote, :locals=>{:title => "Citations - #{@quote.author.name}, #{@quote.book.name}"}
+  slim :quote, :locals=>{:title => "Citations - #{@quote.author.name}, #{@quote.book.name}"}, :layout => 'layout'
 end
 
 get '/quote/best' do
   @quotes = Quote.gt(starred: 0).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:starred).page(params[:page])
   @randomQuote = getRandomQuote
   @dailyQuote = getDailyQuote("plain")
-  slim :index, :locals=>{:title => "Citations - Meilleures citations", :h1 => "Meilleures citations"}
+  slim :index, :locals=>{:title => "Citations - Meilleures citations", :h1 => "Meilleures citations"}, :layout => 'layout'
 end
 
 get '/quote/:id' do |id|
@@ -88,7 +88,7 @@ get '/quote/:id' do |id|
   @dailyQuote = getDailyQuote("plain")
   @quote = Quote.find(id)
   redirect '/' if @quote.hidden && session[:user] != @quote.user
-  slim :quote, :locals=>{:title => "Citations - #{@quote.author.name}, #{@quote.book.name}"}
+  slim :quote, :locals=>{:title => "Citations - #{@quote.author.name}, #{@quote.book.name}"}, :layout => 'layout'
 end
 
 post '/quote' do

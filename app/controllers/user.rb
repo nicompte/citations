@@ -10,5 +10,5 @@ get '/user/:id' do |id|
   auth_id = @quotes.distinct(:author)
   @authors = Author.find(auth_id).sort_by! { |a| a["name"] }
 
-  slim :"user/index"
+  slim :"user/index", :layout => 'layout'
 end

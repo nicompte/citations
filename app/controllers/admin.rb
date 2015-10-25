@@ -7,7 +7,7 @@ end
 
 get '/admin/users' do
   @users = User.all.asc(:name)
-  slim :users
+  slim :users, :layout => 'layout'
 end
 
 post '/admin/author/edit' do

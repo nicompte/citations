@@ -13,7 +13,7 @@ get '/books' do
   ('A'..'Z').each do |letter|
     @books[letter] = books.select{|book| book.name.starts_with?(letter) && book.name != 'Hors livre'}
   end
-  slim :books, :locals=>{:title => "Citations - Livres"}
+  slim :books, :locals=>{:title => "Citations - Livres"}, :layout => 'layout'
 end
 
 get '/book/:id' do |id|
@@ -21,5 +21,5 @@ get '/book/:id' do |id|
   @dailyQuote = getDailyQuote("plain")
   @book = Book.find(id)
   @quotes = Quote.where(book: id).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
-  slim :book, :locals=>{:title => "Citations - #{@book.author.name}, #{@book.name}"}
+  slim :book, :locals=>{:title => "Citations - #{@book.author.name}, #{@book.name}"}, :layout => 'layout'
 end

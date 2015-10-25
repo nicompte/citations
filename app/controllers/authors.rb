@@ -13,7 +13,7 @@ get '/authors' do
   ('A'..'Z').each do |letter|
     @authors[letter] = authors.select{|author| author.name.starts_with?(letter)}
   end
-  slim :authors, :locals=>{:title => "Citations - Auteurs"}
+  slim :authors, :locals=>{:title => "Citations - Auteurs"}, :layout => 'layout'
 end
 
 get '/author/:id' do |id|
@@ -21,5 +21,5 @@ get '/author/:id' do |id|
   @dailyQuote = getDailyQuote("plain")
   @author = Author.find(id)
   @quotes = Quote.where(author: id).or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
-  slim :author, :locals=>{:title => "Citations - #{@author.name}"}
+  slim :author, :locals=>{:title => "Citations - #{@author.name}"}, :layout => 'layout'
 end
