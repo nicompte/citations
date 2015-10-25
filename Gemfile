@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 ruby "2.2.3"
 gem 'sinatra', '~>1.4.6'
-gem 'slim', '~>2.0.1'
+gem 'slim', '~>3.0.6'
 gem 'newrelic_rpm'
 gem 'mongoid', '~>5.0.0'
 gem 'redis', '~> 3.0.7'
