@@ -16,8 +16,8 @@ end
 
 get '/me/authors' do
   auth_id = Quote.where(user: session[:user]).distinct(:author)
-  @authors = Author.find(auth_id).sort_by! { |a| a["name"] }, :layout => 'layout'
-  slim :authors, :locals=>{:title => "Citations - Mes auteurs", :h1 => "Mes auteurs"}
+  @authors = Author.find(auth_id).sort_by! { |a| a["name"] }
+  slim :authors, :locals=>{:title => "Citations - Mes auteurs", :h1 => "Mes auteurs"}, :layout => 'layout'
 end
 
 get '/me/books' do
