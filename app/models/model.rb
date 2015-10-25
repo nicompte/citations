@@ -32,7 +32,7 @@ class User
   field :name, type: String
   field :password, type: String
   field :email, type: String
-  field :validated, type: Boolean
+  field :isValidated, type: Boolean
   field :token, type: String
   field :starred, type: Array
   has_many :quotes

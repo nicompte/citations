@@ -4,7 +4,7 @@ post '/login' do
   content_type :json
   user = User.where(name: params[:user])
   if user.exists? && user.first.password == Digest::MD5.hexdigest(params[:password])
-    if user.first.validated == false
+    if user.first.isValidated == false
       return {:login => "ko", :message => "Veuillez valider votre email."}.to_json
     end
     session[:user] = user.first
@@ -26,7 +26,7 @@ post '/register' do
   redirect '/' unless alreadyExisting.nil? or !alreadyExisting.exists?
 
   params[:user].except! "password-again"
-  params[:user]["validated"] = false
+  params[:user]["isValidated"] = false
   params[:user]["token"] = SecureRandom.hex(15)
   params[:user]["password"] = Digest::MD5.hexdigest params[:user]["password"]
   user = User.create(params[:user])
@@ -48,7 +48,7 @@ end
 get '/user/:id/token/:token' do |user, token|
   user = User.find(user)
   if user.token == token
-    user.validated = true
+    user.isValidated = true
     user.save
   end
   redirect '/'
