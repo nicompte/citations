@@ -173,5 +173,5 @@ get '/?' do
   @quotes = Quote.or( {hidden: false}, {hidden: true, user: session[:user]} ).desc(:_id).page(params[:page])
   @randomQuote = getRandomQuote
   @dailyQuote = getDailyQuote("plain")
-  slim :index, :layout => true
+  slim :index, :layout => 'layout'
 end
