@@ -3,9 +3,9 @@ ruby "2.2.3"
 gem 'sinatra', '~>1.4.6'
 gem 'slim', '~>2.0.1'
 gem 'newrelic_rpm'
-gem 'mongoid', '~>3.1.6'
+gem 'mongoid', '~>5.0.0'
 gem 'redis', '~> 3.0.7'
-gem 'kaminari', '~>0.15.1'
+gem 'kaminari', '~>0.16.3'
 gem 'padrino-helpers'
 gem 'bootstrap-kaminari-views'
 
