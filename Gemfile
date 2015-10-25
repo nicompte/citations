@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby "2.1.0"
+ruby "2.2.3"
 gem 'sinatra', '~>1.4.6'
 gem 'slim', '~>2.0.1'
 gem 'newrelic_rpm'
